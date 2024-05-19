@@ -40,7 +40,7 @@ const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                cartItems: [...state.cartItems,action.payload]
+                cartItems: [action.payload]
 
             };
 
