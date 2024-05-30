@@ -6,7 +6,7 @@ import { Divider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllRestaurantAction } from '../State/Restaurant/Action';
 import { useEffect } from 'react';
-import { findCart } from '../State/Cart/Action';
+
 
 
 
@@ -20,10 +20,10 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getAllRestaurantAction(jwt));
-       
+        
     }, [])
 
-  
+
 
     return (
         <div className='pb-10'>

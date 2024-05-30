@@ -21,6 +21,7 @@ const cartReducer = (state = initialState, action) => {
                 ...state,
                 loading: null,
                 error: null,
+                
 
             };
 
@@ -31,7 +32,7 @@ const cartReducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 cart: action.payload,
-                cartItems: action.payload.items
+                cartItems: action.payload.item
 
             };
 
@@ -60,7 +61,7 @@ const cartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                cartItems: state.cartItems.filter(
+                cartItems: state.cartItems?.filter(
                     (item) => item.id !== action.payload
                 )
 

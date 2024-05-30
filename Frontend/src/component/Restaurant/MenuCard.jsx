@@ -2,16 +2,18 @@ import { Accordion, Button, Checkbox, FormControlLabel, FormGroup } from '@mui/m
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { categorizeIngrdients } from '../../utils/categrizeingredinets';
 import { useDispatch } from 'react-redux';
-import { addItemToCart } from '../State/Cart/Action';
+import { addItemToCart, findCart } from '../State/Cart/Action';
 
 const MenuCard = ({ item }) => {
 
     const [selectedIngrdients, setSelectedIngredinets] = useState([]);
-
+   
     const dispatch = useDispatch();
+    
+
     const handleAddItemToCart = (e) => {
         e.preventDefault(); 
         const reqData = {
@@ -22,7 +24,7 @@ const MenuCard = ({ item }) => {
                 ingredients: selectedIngrdients
             }
         };
-        console.log(reqData);
+      
         dispatch(addItemToCart(reqData));
 
     }
@@ -37,6 +39,9 @@ const MenuCard = ({ item }) => {
             setSelectedIngredinets([...selectedIngrdients, itemName]);
         }
     }
+
+ 
+    
 
     return (
         <div>

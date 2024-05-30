@@ -6,7 +6,8 @@ import AddLocationIcon from '@mui/icons-material/AddLocation';
 
 import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { createOrder } from '../State/Order/Action';
 
 export const style = {
     position: 'absolute',
@@ -24,8 +25,8 @@ export const style = {
 
 const Cart = () => {
 
-    const { cart } = useSelector(store => store);
-   
+    const { cart, auth } = useSelector(store => store);
+
     const createOrderUsingSelectedAddress = () => {
 
     }
@@ -34,8 +35,27 @@ const Cart = () => {
         setOpen(true);
     }
 
-    const handleOnSubmit = (value) => {
-        console.log(value);
+    const dispatch = useDispatch();
+
+    const handleOnSubmit = (values) => {
+
+        const data = {
+            jwt: localStorage.getItem("jwt"),
+            restaurantId: cart.cartItems[0].food?.restaurant.id,
+            deliveryAddress: {
+                fullName: auth.user?.fullName,
+                streetAddress: values.streetAddress,
+                city: values.city,
+                state: values.state,
+                postalCode: values.pincode,
+                country: "Srilanka"
+
+            }
+        }
+
+
+       console.log(data);
+        dispatch(createOrder(data));
     }
 
     const [open, setOpen] = useState(false);
@@ -46,7 +66,8 @@ const Cart = () => {
         streetAddress: "",
         state: "",
         pincode: '',
-        city: ""
+        city: "",
+        country:""
     }
 
     const validationSchema = Yup.object().shape({
@@ -64,8 +85,11 @@ const Cart = () => {
 
                 <section className='lg:w-[30%] space-y-6 lg:min-h-screen pt-10'>
                     {
-                        cart.cart?.item.map(item =>
-                            <CartItem  item={item}/>
+
+                        cart.cartItems?.map(item =>
+
+                            <CartItem item={item} />
+
                         )
                     }
                     <Divider />
@@ -76,18 +100,18 @@ const Cart = () => {
 
                             <div className='flex justify-between text-gray-400'>
                                 <p>Item Total</p>
-                                <p>599 LKR</p>
+                                <p>Rs. {cart?.cart?.total}</p>
                             </div>
                             <div className='flex justify-between text-gray-400'>
                                 <p>Dilivery Free</p>
-                                <p>299 LKR</p>
+                                <p>Rs. 299</p>
                             </div>
 
                         </div>
                         <Divider />
                         <div className='flex justify-between text-gray-400'>
                             <p>Total pay</p>
-                            <p>3300 LKR</p>
+                            <p>Rs. {cart?.cart?.total + 299}</p>
                         </div>
 
                     </div>

@@ -3,7 +3,7 @@ import * as actionTypes from './ActionTypes';
 const initialState = {
 
     restaurants: [],
-    usersRestaurnat: null,
+    usersRestaurant: null,
     restaurant: null,
     loading: null,
     error: null,
@@ -34,7 +34,7 @@ const restaurantReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                usersRestaurnat: action.payload
+                usersRestaurant: action.payload
             }
 
 
@@ -61,7 +61,7 @@ const restaurantReducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                usersRestaurnat: action.payload
+                usersRestaurant: action.payload
             }
 
         case actionTypes.DELETE_RESTAURANT_SUCCESS:

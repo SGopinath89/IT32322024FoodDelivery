@@ -97,8 +97,9 @@ export const updateCartItem = (reqData) => {
             );
 
             dispach({ type: UPDATE_CART_ITEM_SUCCESS, payload: data });
-
+            console.log("Cart Item Update",data);
         } catch (error) {
+            console.log(error);
             dispach({ type: UPDATE_CART_ITEM_FAILURE, payload: error.message });
         }
     }
@@ -123,8 +124,10 @@ export const removeCartItem = ({ cartItemId, jwt }) => {
             );
 
             dispach({ type: REMOVE_CART_ITEM_SUCCESS, payload: cartItemId });
+            console.log("Remove Cart Item ",data);
 
         } catch (error) {
+            console.log(error);
             dispach({ type: REMOVE_CART_ITEM_FAILURE, payload: error.message });
         }
     }

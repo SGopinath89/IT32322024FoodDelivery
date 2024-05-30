@@ -9,7 +9,11 @@ export const createOrder = (reqData) => {
 
         try {
 
-            const { data } = await api.post(`/api/order`, reqData,
+            const { data } = await api.post(`/api/order`, 
+            {
+                deliveryAddress:reqData.deliveryAddress,
+                restaurantId:reqData.restaurantId
+            },
                 {
                     headers: {
                         Authorization: `Bearer ${reqData.jwt}`
@@ -21,7 +25,9 @@ export const createOrder = (reqData) => {
 
             // }
             dispatch({ type: CREATE_ORDER_SUCCESS, payload: data });
+            console.log("Order Created",data);
         } catch (error) {
+            console.log(error);
             dispatch({ type: CREATE_ORDER_FAILURE, payload: error });
         }
     }
@@ -44,7 +50,9 @@ export const getUsersOrders = (jwt) => {
 
             );
             dispatch({ type: GET_USERS_ORDERS_SUCCESS, payload: data });
+            console.log("All Orders",data);
         } catch (error) {
+            console.log(error);
             dispatch({ type: GET_USERS_ORDERS_FAILURE, payload: error });
         }
     }
