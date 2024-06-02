@@ -95,15 +95,15 @@ const RestaurantDetails = () => {
                     <p className='text-gray-500 flex items-center gap-3 '>
                         <LocationOnIcon />
                         <span>
-                        {restaurant.restaurant?.address?.streetAddress} , {restaurant.restaurant?.address?.city}
+                            {restaurant.restaurant?.address?.streetAddress} , {restaurant.restaurant?.address?.city}
                         </span>
 
                     </p>
                     <p className='text-gray-500 flex items-center gap-3 '>
                         <CalendarTodayIcon />
                         <span>
-                            
-{restaurant.restaurant?.openingHours}
+
+                            {restaurant.restaurant?.openingHours}
 
                         </span>
 

@@ -5,16 +5,17 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React, { useEffect, useState } from 'react'
 import { categorizeIngrdients } from '../../utils/categrizeingredinets';
 import { useDispatch, useSelector } from 'react-redux';
-import { addItemToCart, findCart } from '../State/Cart/Action';
+import { addItemToCart, getAllCartItems } from '../State/Cart/Action';
 
 const MenuCard = ({ item }) => {
-console.log(item)
-    const [selectedIngrdients, setSelectedIngredinets] = useState([]);
 
+    const [selectedIngrdients, setSelectedIngredinets] = useState([]);
     const dispatch = useDispatch();
+    const jwt = localStorage.getItem("jwt");
+
 
     const handleAddItemToCart = (e) => {
-        
+
         e.preventDefault();
         const reqData = {
             token: localStorage.getItem("jwt"),
@@ -26,6 +27,7 @@ console.log(item)
         };
 
         dispatch(addItemToCart(reqData));
+
 
     }
 
@@ -75,8 +77,8 @@ console.log(item)
 
                                             {
                                                 categorizeIngrdients(item.ingredients)[category].map(item =>
-                                                
-                                                        <FormControlLabel key={item.id} control={<Checkbox disabled={!item.inStoke} onChange={() => handleCheckBoxChange(item.name)} />} label={item.name} />
+
+                                                    <FormControlLabel key={item.id} control={<Checkbox disabled={!item.inStoke} onChange={() => handleCheckBoxChange(item.name)} />} label={item.name} />
                                                 )
                                             }
 

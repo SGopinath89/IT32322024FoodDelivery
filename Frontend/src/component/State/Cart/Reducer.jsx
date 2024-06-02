@@ -21,7 +21,7 @@ const cartReducer = (state = initialState, action) => {
                 ...state,
                 loading: null,
                 error: null,
-                
+
 
             };
 
@@ -35,13 +35,19 @@ const cartReducer = (state = initialState, action) => {
                 cartItems: action.payload.item
 
             };
+        case actionTypes.GET_ALL_CART_ITEMS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                cartItems: action.payload
 
+            };
         case actionTypes.ADD_ITEM_TO_CART_SUCCESS:
 
             return {
                 ...state,
                 loading: false,
-                cartItems: [action.payload]
+                cartItems: [action.payload, ...state.cartItems]
 
             };
 

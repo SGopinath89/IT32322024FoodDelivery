@@ -33,11 +33,11 @@ const Home = () => {
             <section className='banner -z-50 relative flex flex-col justify-center items-center'>
                 <div className='w-[50vw] z-10 text-center text-black'>
 
-                    <p className='text-2xl lg:text-6xl font-bold z-10 py-5 '>
+                    <p className='text-2xl lg:text-7xl font-bold z-10 py-5 '>
                         Fast Food
                     </p>
-                    <p className='z-10 text-red-90 text-xl lg:text-4xl'>
-                        Taste the Convenience: Food, Fast and Deliverd.
+                    <p className='z-10 text-red-90 text-xl lg:text-5xl'>
+                        Taste the Convenience Food, Fast and Deliverd.
                     </p >
 
                 </div>

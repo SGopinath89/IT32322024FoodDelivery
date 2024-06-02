@@ -8,6 +8,7 @@ import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder } from '../State/Order/Action';
+import { useNavigate } from 'react-router-dom';
 
 export const style = {
     position: 'absolute',
@@ -26,7 +27,7 @@ export const style = {
 const Cart = () => {
 
     const { cart, auth } = useSelector(store => store);
-
+    const navigate = useNavigate();
     const createOrderUsingSelectedAddress = () => {
 
     }
@@ -38,22 +39,22 @@ const Cart = () => {
     const dispatch = useDispatch();
 
     const handleOnSubmit = (values) => {
-        
+
         const data = {
             jwt: localStorage.getItem("jwt"),
             mobile: values.mobile,
             restaurantId: cart.cartItems[0].food?.restaurant.id,
             deliveryAddress: {
                 fullName: auth.user?.fullName,
-                streetAddress:values.streetAddress,
+                streetAddress: values.streetAddress,
                 city: values.city,
-               
-               
+
+
 
             }
         }
 
-        
+
 
         dispatch(createOrder(data));
     }
@@ -65,14 +66,14 @@ const Cart = () => {
 
         streetAddress: "",
         city: "",
-        
+
     }
 
     const validationSchema = Yup.object().shape({
 
         streetAddress: Yup.string().required("Street Address is required"),
         mobile: Yup.string().required("Mobile is required"),
-      
+
         city: Yup.string().required("City is required")
 
     })
@@ -82,19 +83,27 @@ const Cart = () => {
             <main className='lg:flex justify-between '>
 
                 <section className='lg:w-[30%] space-y-6 lg:min-h-screen pt-10'>
-                    {
 
-                        cart.cartItems?.map(item =>
+                    {
+                        cart?.cartItems.length > 0 ? (cart.cartItems?.map(item =>
 
                             <CartItem item={item} />
 
+                        )) : (
+                            <div className='px-20'>
+                                {/* <center className='text-gray-500 p-5'>Cart Empty</center> */}
+                                <div className='flex justify-center'><Button onClick={() => navigate("/profile/favorits")} fullWidth variant='outlined'>Add Items</Button></div>
+                            </div>
                         )
+
                     }
                     <Divider />
+
+
                     <div className='billDetails px-5 text-sm'>
                         <p className='font-extralight py-5'>Bill Details</p>
                         <div className='space-y-3 pb-3
-                        '>
+                    '>
 
                             <div className='flex justify-between text-gray-400'>
                                 <p>Item Total</p>
@@ -102,17 +111,18 @@ const Cart = () => {
                             </div>
                             <div className='flex justify-between text-gray-400'>
                                 <p>Dilivery Free</p>
-                                <p>Rs. 299</p>
+                                <p>Rs. 00</p>
                             </div>
 
                         </div>
                         <Divider />
                         <div className='flex justify-between text-gray-400'>
                             <p>Total pay</p>
-                            <p>Rs. {cart?.cart?.total + 299}</p>
+                            <p>Rs. {cart?.cart?.total}</p>
                         </div>
 
                     </div>
+
 
                 </section>
 
@@ -160,7 +170,7 @@ const Cart = () => {
                         >
                             <Form>
                                 <Grid container spacing={2} >
-                                    <Grid item xs={12}> <h1 className='font-bold text-xl text-gray-400'>Add Address</h1></Grid>
+                                    <Grid item xs={12}> <h1 className='flex font-bold text-xl text-gray-400 justify-center'>Add Address</h1></Grid>
                                     <Grid item xs={12}>
                                         <Field
                                             as={TextField}
@@ -169,7 +179,7 @@ const Cart = () => {
                                             fullWidth variant="outlined"
                                             error={!ErrorMessage("streetAddress")}
 
-                                      
+
                                         >
 
                                         </Field>
@@ -182,13 +192,13 @@ const Cart = () => {
                                             fullWidth variant="outlined"
                                             error={!ErrorMessage("mobile")}
 
-                                       
+
 
                                         >
 
                                         </Field>
                                     </Grid>
-                                    <Grid item xs={6}>
+                                    <Grid item xs={12}>
                                         <Field
                                             as={TextField}
                                             name="city"
@@ -196,13 +206,13 @@ const Cart = () => {
                                             fullWidth variant="outlined"
                                             error={!ErrorMessage("city")}
 
-                                      
+
 
                                         >
 
                                         </Field>
                                     </Grid>
-                                   
+
                                     <Grid item xs={12}>
                                         <Button fullWidth variant='contained' type='submit' color='primary' className=''>Add</Button>
                                     </Grid>

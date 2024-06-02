@@ -15,11 +15,6 @@ const Navbar = () => {
     const { auth, cart } = useSelector(store => store);
     const [authenticate, setAuthenticate] = useState(false);
 
-    useEffect(() => {
-        if (auth.jwt) {
-            dispatch(getAllCartItems({ token: auth.jwt }));
-        }
-    }, [auth.jwt, dispatch]);
 
     const handleAvatarClick = () => {
         if (auth.user.role === "ROLE_CUSTOMER") {
@@ -44,8 +39,8 @@ const Navbar = () => {
         <>
             <div className='px-5 sticky top-0 z-50 py-[0.8rem] bg-black lg:px-20 flex justify-between'>
                 <div className='lg:mr-10 cursor-pointer flex items-center space-x-4'>
-                    <li className='list-none logo text-[26px] underline'>
-                        <Link to='/'>FAST-FOODS</Link>
+                    <li className='list-none logo text-[28px]'>
+                        <Link to='/'><div>FAST   FOODS</div></Link>
                     </li>
                 </div>
                 <div className='flex items-center space-x-2 lg:space-x-10'>
@@ -69,18 +64,19 @@ const Navbar = () => {
                     </div>
                     <div>
                         <IconButton onClick={handleCart}>
-                            <Badge color='primary' badgeContent={cart.cart?.item.length}>
+                            <Badge color='primary' badgeContent={cart?.cartItems?.length}>
                                 <ShoppingCartIcon sx={{ fontSize: "1.5rem" }} />
                             </Badge>
                         </IconButton>
                     </div>
                 </div>
-            </div>
+            </div >
             {authenticate && (
                 <Alert severity="error" sx={{ position: 'fixed', top: 10, right: 50 }}>
                     Please you need to login first
                 </Alert>
-            )}
+            )
+            }
         </>
     )
 }
