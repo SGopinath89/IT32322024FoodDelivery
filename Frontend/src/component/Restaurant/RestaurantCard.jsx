@@ -13,18 +13,27 @@ const RestaurantCard = ({ item }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt");
-    const { auth } = useSelector(store => store);
+    const { auth} = useSelector(store => store);
 
+  
+   
     const handleAddToFavorites = () => {
 
-        dispatch(addToFavorite({ restaurantId: item.id, jwt }));
+        if (auth.user) {
+            dispatch(addToFavorite({ restaurantId: item.id, jwt }));
+        } else {
+            alert("You must login first");
+        }
+
     }
 
     const handleNavigateToRestaurant = () => {
+        if (!auth.user) {
+            alert("You must login first");
+        }
+        else if (item.open) {  //set logic correct after test
 
-        if (!item.open) {  //set logic correct after test
-
-            navigate(`/restaurant/${item.address.city}/${item.name}/${item.id}`);
+            navigate(`/restaurant/${item?.address?.city}/${item.name}/${item.id}`);
         }
     }
 
@@ -43,7 +52,7 @@ const RestaurantCard = ({ item }) => {
             </div>
             <div className='p-4 textPart lg:flex w-full justify-between'>
                 <div className='space-y-1'>
-                    <p onClick={handleNavigateToRestaurant} className='font-semibold text-lg cursor-pointer'>{item.name}</p>
+                    <p onClick={handleNavigateToRestaurant} className='font-semibold text-lg cursor-pointer'>{item.name || item.title}</p>
                     <p className='text-gray-500 text-sm'>{item.description}</p>
                 </div>
                 <div>

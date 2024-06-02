@@ -36,7 +36,8 @@ export const loginUser = (reqData) => async (dispatch) => {
             reqData.navigate("/");
         }
 
-        dispatch({ type: LOGIN_SUCCESS, payload: data.jwt });
+        dispatch({ type: LOGIN_SUCCESS, payload: data });
+
         console.log("Login Success", data);
     } catch (error) {
         dispatch({ type: REGISTER_FAILURE, payload: error });
@@ -83,8 +84,10 @@ export const addToFavorite = ({ restaurantId, jwt }) => async (dispatch) => {
 
 }
 
+
+
 export const logout = () => async (dispatch) => {
-    dispatch({ type: ADD_TO_FAVORITE_REQUEST })
+   
     try {
 
         localStorage.clear();

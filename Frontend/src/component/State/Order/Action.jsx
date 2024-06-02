@@ -4,7 +4,7 @@ import { CREATE_ORDER_FAILURE, CREATE_ORDER_REQUEST, CREATE_ORDER_SUCCESS, GET_U
 export const createOrder = (reqData) => {
 
     return async (dispatch) => {
-
+        console.log(reqData)
         dispatch({ type: CREATE_ORDER_REQUEST });
 
         try {
@@ -12,7 +12,8 @@ export const createOrder = (reqData) => {
             const { data } = await api.post(`/api/order`, 
             {
                 deliveryAddress:reqData.deliveryAddress,
-                restaurantId:reqData.restaurantId
+                restaurantId:reqData.restaurantId,
+                mobile:reqData.mobile
             },
                 {
                     headers: {

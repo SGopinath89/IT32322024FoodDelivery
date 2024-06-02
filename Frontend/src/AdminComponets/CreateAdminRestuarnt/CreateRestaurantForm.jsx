@@ -5,7 +5,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import React, { useState } from 'react';
 import { uploadImageToCloudinary } from '../util/UploadToCloudinary';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { createRestaurant } from '../../component/State/Restaurant/Action';
 
 // const initialValues = {
@@ -65,6 +65,10 @@ const CreateRestaurantForm = () => {
   const jwt = localStorage.getItem("jwt");
   const [uploadImage, setUploadImage] = useState(false);
 
+  const { auth } = useSelector(store => store);
+
+
+
   const formik = useFormik({
     initialValues,
     validationSchema,
@@ -91,7 +95,8 @@ const CreateRestaurantForm = () => {
         openingHours: values.openingHours,
         images: values.images, // Assuming you want to include uploaded images
       };
-console.log(data);
+
+      console.log(jwt);
       dispatch(createRestaurant({ data, token: jwt }));
     }
 

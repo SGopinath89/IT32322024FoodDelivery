@@ -38,23 +38,23 @@ const Cart = () => {
     const dispatch = useDispatch();
 
     const handleOnSubmit = (values) => {
-
+        
         const data = {
             jwt: localStorage.getItem("jwt"),
+            mobile: values.mobile,
             restaurantId: cart.cartItems[0].food?.restaurant.id,
             deliveryAddress: {
                 fullName: auth.user?.fullName,
-                streetAddress: values.streetAddress,
+                streetAddress:values.streetAddress,
                 city: values.city,
-                state: values.state,
-                postalCode: values.pincode,
-                country: "Srilanka"
+               
+               
 
             }
         }
 
+        
 
-       console.log(data);
         dispatch(createOrder(data));
     }
 
@@ -64,17 +64,15 @@ const Cart = () => {
     const initialValues = {
 
         streetAddress: "",
-        state: "",
-        pincode: '',
         city: "",
-        country:""
+        
     }
 
     const validationSchema = Yup.object().shape({
 
         streetAddress: Yup.string().required("Street Address is required"),
-        state: Yup.string().required("State is required"),
-        pincode: Yup.string().required("Pincode is required"),
+        mobile: Yup.string().required("Mobile is required"),
+      
         city: Yup.string().required("City is required")
 
     })
@@ -167,16 +165,11 @@ const Cart = () => {
                                         <Field
                                             as={TextField}
                                             name="streetAddress"
-                                            label="Street Address"
+                                            label="Address"
                                             fullWidth variant="outlined"
                                             error={!ErrorMessage("streetAddress")}
 
-                                        // helperText={
-                                        //     <ErrorMessage>
-                                        //         {(msg) => <span className='text-red-600'>{msg}</span>}
-                                        //     </ErrorMessage>
-                                        // }
-
+                                      
                                         >
 
                                         </Field>
@@ -184,16 +177,12 @@ const Cart = () => {
                                     <Grid item xs={12}>
                                         <Field
                                             as={TextField}
-                                            name="state"
-                                            label="State"
+                                            name="mobile"
+                                            label="Mobile"
                                             fullWidth variant="outlined"
-                                            error={!ErrorMessage("state")}
+                                            error={!ErrorMessage("mobile")}
 
-                                        // helperText={
-                                        //     <ErrorMessage>
-                                        //         {(msg) => <span className='text-red-600'>{msg}</span>}
-                                        //     </ErrorMessage>
-                                        // }
+                                       
 
                                         >
 
@@ -207,34 +196,13 @@ const Cart = () => {
                                             fullWidth variant="outlined"
                                             error={!ErrorMessage("city")}
 
-                                        // helperText={
-                                        //     <ErrorMessage>
-                                        //         {(msg) => <span className='text-red-600'>{msg}</span>}
-                                        //     </ErrorMessage>
-                                        // }
+                                      
 
                                         >
 
                                         </Field>
                                     </Grid>
-                                    <Grid item xs={6}>
-                                        <Field
-                                            as={TextField}
-                                            name="pincode"
-                                            label="Pin Code"
-                                            fullWidth variant="outlined"
-                                            error={!ErrorMessage("pincode")}
-
-                                        // helperText={
-                                        //     <ErrorMessage>
-                                        //         {(msg) => <span className='text-red-600'>{msg}</span>}
-                                        //     </ErrorMessage>
-                                        // }
-
-                                        >
-
-                                        </Field>
-                                    </Grid>
+                                   
                                     <Grid item xs={12}>
                                         <Button fullWidth variant='contained' type='submit' color='primary' className=''>Add</Button>
                                     </Grid>

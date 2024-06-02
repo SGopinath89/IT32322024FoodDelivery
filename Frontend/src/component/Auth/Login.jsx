@@ -1,9 +1,11 @@
 import { Button, Grid, TextField, Typography } from '@mui/material'
 import { ErrorMessage, Field, Form, Formik } from 'formik'
 import React from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
-import { loginUser } from '../State/Authentication/Action.jsx';
+import { loginUser, logout } from '../State/Authentication/Action.jsx';
+import { getAllRestaurantAction, getRestaurantByUserId } from '../State/Restaurant/Action.jsx';
+import { useEffect } from 'react';
 
 
 const initialValues = {
@@ -15,11 +17,20 @@ const initialValues = {
 const Login = () => {
 
   const navigate = useNavigate();
-  const  dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem("jwt")) {
+      
+      dispatch(logout());
+    }
+  }, [])
+
 
   const handleOnSubmit = (values) => {
-    
+
     dispatch(loginUser({ userData: values, navigate }));
+
   }
 
 

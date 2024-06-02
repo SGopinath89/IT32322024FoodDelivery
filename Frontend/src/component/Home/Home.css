@@ -1,7 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Kode+Mono:wght@400..700&family=Permanent+Marker&display=swap');
 
+
+
 .banner{
-    background-image:url("https://images.pexels.com/photos/4551832/pexels-photo-4551832.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1");
+    
+    background-image:url("https://img.freepik.com/free-vector/delivery-service-with-masks-concept_23-2148497067.jpg?t=st=1717260338~exp=1717263938~hmac=9442abfe0acd1f07dbae1ec13ee836842dd7f3754fa97b8dcd79472120f9509f&w=1060");
     background-size:cover;
     background-repeat:no-repeat;
     width:100%;

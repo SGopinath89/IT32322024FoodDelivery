@@ -25,10 +25,12 @@ function App() {
   useEffect(() => {
 
     dispatch(getUser(auth.jwt || jwt));
+
     //dispatch(getAllRestaurantAction(jwt));
     dispatch(findCart(jwt));
 
-  }, [auth.jwt])
+
+  }, [auth.jwt, jwt])
 
 
   useEffect(() => {
@@ -36,7 +38,7 @@ function App() {
     dispatch(getRestaurantByUserId(auth.jwt || jwt));
 
 
-  }, [auth.user])
+  }, [jwt, auth.jwt])
 
   return (
     <ThemeProvider theme={darkTheam}>

@@ -4,6 +4,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateRestaurantStatus } from '../../component/State/Restaurant/Action';
+
 const RestaurantDetails = () => {
 
   const { restaurant } = useSelector((store) => store);
@@ -13,6 +14,7 @@ const RestaurantDetails = () => {
   const handleRestaurntStatus = () => {
 
     dispatch(updateRestaurantStatus({ restaurantId: restaurant?.usersRestaurant?.id, jwt }));
+
   }
 
   return (
@@ -20,7 +22,7 @@ const RestaurantDetails = () => {
       <div className='py-5 flex justify-center items-center gap-5'>
         <h1 className='text-2xl lg:text-7xl text-center font-bold p-5'>{restaurant?.usersRestaurant?.name}</h1>
         <div>
-          <Button color={restaurant?.usersRestaurant?.open ?"primary" : "green"} className='py-[1rem] px-[2rem]' variant='contained' onClick={handleRestaurntStatus} size='large'>
+          <Button color={restaurant?.usersRestaurant?.open ? "primary" : "green"} className='py-[1rem] px-[2rem]' variant='contained' onClick={handleRestaurntStatus} size='large'>
             {restaurant?.usersRestaurant?.open ? "Close" : "Open"}
           </Button>
         </div>

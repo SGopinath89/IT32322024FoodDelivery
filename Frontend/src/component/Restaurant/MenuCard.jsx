@@ -4,18 +4,18 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React, { useEffect, useState } from 'react'
 import { categorizeIngrdients } from '../../utils/categrizeingredinets';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart, findCart } from '../State/Cart/Action';
 
 const MenuCard = ({ item }) => {
-
+console.log(item)
     const [selectedIngrdients, setSelectedIngredinets] = useState([]);
-   
+
     const dispatch = useDispatch();
-    
 
     const handleAddItemToCart = (e) => {
-        e.preventDefault(); 
+        
+        e.preventDefault();
         const reqData = {
             token: localStorage.getItem("jwt"),
             cartItem: {
@@ -24,7 +24,7 @@ const MenuCard = ({ item }) => {
                 ingredients: selectedIngrdients
             }
         };
-      
+
         dispatch(addItemToCart(reqData));
 
     }
@@ -40,8 +40,8 @@ const MenuCard = ({ item }) => {
         }
     }
 
- 
-    
+
+
 
     return (
         <div>
@@ -75,7 +75,8 @@ const MenuCard = ({ item }) => {
 
                                             {
                                                 categorizeIngrdients(item.ingredients)[category].map(item =>
-                                                    <FormControlLabel key={item.id} control={<Checkbox onChange={() => handleCheckBoxChange(item.name)} />} label={item.name} />
+                                                
+                                                        <FormControlLabel key={item.id} control={<Checkbox disabled={!item.inStoke} onChange={() => handleCheckBoxChange(item.name)} />} label={item.name} />
                                                 )
                                             }
 

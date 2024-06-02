@@ -10,7 +10,7 @@ const orderStatus = [
     { label: "Delivered", value: "DELIVERED" },
 ];
 
-const OrderTable = ({status}) => {
+const OrderTable = ({ status }) => {
 
 
     const dispatch = useDispatch();
@@ -70,6 +70,8 @@ const OrderTable = ({status}) => {
                             <TableCell>Id</TableCell>
                             <TableCell align="right">Image</TableCell>
                             <TableCell align="right">Customer</TableCell>
+                            <TableCell align="right">Address</TableCell>
+                            <TableCell align="right">Mobile</TableCell>
                             <TableCell align="right">Price</TableCell>
                             <TableCell align="right">Name</TableCell>
                             <TableCell align="right">Ingredients</TableCell>
@@ -89,10 +91,12 @@ const OrderTable = ({status}) => {
                                     </AvatarGroup>
                                 </TableCell>
                                 <TableCell align="right">{row?.customer?.fullName}</TableCell>
-                                <TableCell align="right">{row?.totalPrice}</TableCell>
+                                <TableCell align="right"><p>{row?.deliveryAddress?.streetAddress}</p><p>{row?.deliveryAddress?.city}</p></TableCell>
+                                <TableCell align="right">{row?.mobile}</TableCell>
+                                <TableCell align="right">Rs. {row?.totalPrice}.00</TableCell>
                                 <TableCell align="right">
                                     {row?.items?.map((item, index) => (
-                                        <p key={index}>{item?.food?.name}</p>
+                                        <p key={index}>{item?.quantity} × {item?.food?.name}</p>
                                     ))}
                                 </TableCell>
                                 <TableCell align="right">

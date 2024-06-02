@@ -71,7 +71,8 @@ const CartItem = ({ item }) => {
                         </div>
                         <div className='pt-3 space-x-2'>
                             {
-                                item.ingredients.map(ingredients =>
+                                item?.ingredients?.map(ingredients =>
+                                   
                                     <Chip key={ingredients} label={ingredients} />
                                 )
                             }

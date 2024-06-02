@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
 import { Field, Form, Formik } from 'formik'
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +22,13 @@ const Register = () => {
 
     dispatch(registerUser({ userData: values, navigate }));
   }
+
+  useEffect(() => {
+    if (localStorage.getItem("jwt")) {
+
+      dispatch(logout());
+    }
+  }, [])
 
 
   return (

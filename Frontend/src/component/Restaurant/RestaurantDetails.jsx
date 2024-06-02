@@ -80,14 +80,14 @@ const RestaurantDetails = () => {
                         <img className='w-full h-[40vh] object-cover ' src={restaurant.restaurant?.images[1]} alt="" />
                     </Grid>
                     <Grid item xs={12} lg={6}>
-                        <img className='w-full h-[40vh] object-cover ' src={restaurant.restaurant?.images[1]} alt="" />
+                        <img className='w-full h-[40vh] object-cover ' src={restaurant.restaurant?.images[2]} alt="" />
                     </Grid>
                 </Grid>
 
             </div>
 
             <div className='pt-3 pb-5'>
-                <h1 className='text-4xl font-semibold'>Vavniya Fast Dilivery Service</h1>
+                <h1 className='text-4xl font-semibold'>{restaurant.restaurant?.name}</h1>
                 <p className='text-gray-500 mt-1'>
                     {restaurant.restaurant?.description}
                 </p>
@@ -95,14 +95,16 @@ const RestaurantDetails = () => {
                     <p className='text-gray-500 flex items-center gap-3 '>
                         <LocationOnIcon />
                         <span>
-                            Vavuniya.Pampeimadu
+                        {restaurant.restaurant?.address?.streetAddress} , {restaurant.restaurant?.address?.city}
                         </span>
 
                     </p>
                     <p className='text-gray-500 flex items-center gap-3 '>
                         <CalendarTodayIcon />
                         <span>
-                            Mon-Sun: 9.00 AM - 9.00 PM (Today)
+                            
+{restaurant.restaurant?.openingHours}
+
                         </span>
 
                     </p>
