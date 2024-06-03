@@ -30,7 +30,7 @@ const RestaurantDetails = () => {
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt");
     const { restaurant, menu } = useSelector(store => store);
-    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState('All');
     const { id } = useParams();
 
 
@@ -51,7 +51,7 @@ const RestaurantDetails = () => {
         dispatch(getRestaurantCategory({ jwt, restaurantId: id }));
     }, [])
 
-
+    console.log(foodType)
     useEffect(() => {
         dispatch(getItemsByRestaurantId({
             jwt, restaurantId: id, vegetarian: foodType === "vegetarian",
@@ -140,7 +140,9 @@ const RestaurantDetails = () => {
                             </Typography>
 
                             <FormControl className='py-10 space-y-5' component={"fieldset"}>
+
                                 <RadioGroup className='food_category' value={selectedCategory} onChange={handleFilterCategory}>
+                                    {/* <FormControlLabel  value={'All'} control={<Radio />} label="All" /> */}
                                     {
                                         restaurant.categories.map((item, key) =>
                                             <FormControlLabel key={key} value={item.name} control={<Radio />} label={item.name} />
