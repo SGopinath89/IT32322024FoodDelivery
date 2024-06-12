@@ -9,4 +9,6 @@ public class OrderRequest {
     private Long restaurantId;
 
     private Address deliveryAddress;
+
+    private String mobile;
 }

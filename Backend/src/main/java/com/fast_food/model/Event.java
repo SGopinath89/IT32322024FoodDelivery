@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,36 +15,22 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "orders")
-public class Order {
-
+public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO )
     private  Long id;
 
-    @ManyToOne
-    private User customer;
+    private String imageUrl;
+
+    private String location;
+
+    private String eventName;
+
+    private String startDate;
+
+    private String endDate;
 
     @JsonIgnore
     @ManyToOne
-    private Restaurant restaurant;
-
-    private Long totalAmount;
-
-    private String orderStatus;
-
-    private Date createdAt;
-
-    @ManyToOne
-    private Address deliveryAddress;
-
-    @OneToMany
-    private List<OrderItem> items=new ArrayList<>();
-
-    private String mobile;
-
-    private int totalItem;
-
-    private Long totalPrice;
-
+    private  Restaurant restaurant;
 }

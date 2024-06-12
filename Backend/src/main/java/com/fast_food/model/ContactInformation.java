@@ -10,7 +10,7 @@ public class ContactInformation {
 
     private  String mobile;
 
-    private String twitter;
+    private String facebook;
 
     private String instagram;
 }
