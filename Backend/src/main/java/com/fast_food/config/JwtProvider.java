@@ -16,7 +16,7 @@ public class JwtProvider {
 
     private SecretKey key= Keys.hmacShaKeyFor(JwtConstant.SECRET_KEY.getBytes());
 
-    public String generateToken(Authentication auth){
+    public String geneateToken(Authentication auth){
 
         Collection<? extends GrantedAuthority> authorities =auth.getAuthorities();
         String roles = populateAuthorities(authorities);  //jwt token allows only string type that's why convert to string again
