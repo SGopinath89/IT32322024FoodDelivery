@@ -40,7 +40,7 @@ const RestaurantCard = ({ item }) => {
     return (
 
         <Card className='w-[18rem]'>
-            <div className={`${true ? 'cursor-pointer' : 'cursor-not-allowed'} relative`}>
+            <div className={`${item.open ? 'cursor-pointer' : 'cursor-not-allowed'} relative`}>
                 <img className='w-full h-[10rem] rounded-t-md object-cover' src={item.images[0]} alt="" />
 
                 <Chip

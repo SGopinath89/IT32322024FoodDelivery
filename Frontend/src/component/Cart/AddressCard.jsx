@@ -3,18 +3,34 @@ import HomeIcon from '@mui/icons-material/Home';
 import React from 'react'
 
 
-const AddressCard = ({ item, showbtn, handleSelectAddress }) => {
+const AddressCard = ({ item }) => {
 
-  
+
     return (
 
         <Card className='flex gap-5 w-64 p-5'>
 
-            <HomeIcon />
-            <div className='space-y-3 text-gray-500'>
-                <h1 className='font-semibold text-lg text-white'>Home</h1>
-                <p>Vavuniya Town, Pampeimadu Srilnaka</p>
-                {showbtn && <Button variant='outlined' fullWidth onClick={() => handleSelectAddress(item)}>Select</Button>}
+
+            <div className='flex-row '>
+                <div>
+                    <HomeIcon />
+                </div>
+                <div>
+                    <h1>{item?.locationType}</h1>
+                </div>
+                <div>
+                    <p>{item?.streetAddress}</p>
+                </div>
+                <div>
+                    <p>{item?.city}</p>
+                </div>
+                <div>
+                    <p>{item?.mobile}</p>
+                </div>
+                <div>
+                    <Button variant='outlined' fullWidth >Select</Button>
+                </div>
+
             </div>
         </Card>
 

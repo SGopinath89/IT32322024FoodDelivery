@@ -16,7 +16,7 @@ const ProfileNavigation = ({ open, handleClose }) => {
     const menu = [
 
         { title: "Orders", icon: <ShoppingBagIcon /> },
-        { title: "Favorits", icon: <FavoriteIcon /> },
+        { title: "Favorites", icon: <FavoriteIcon /> },
         { title: "Address", icon: <LocationOnIcon /> },
         { title: "Payments", icon: <PaymentIcon /> },
         { title: "Notifications", icon: <NotificationsActiveIcon /> },
@@ -25,7 +25,7 @@ const ProfileNavigation = ({ open, handleClose }) => {
 
     ];
 
-    const isSmallScreen = useMediaQuery('(max-width:1080px)');
+    const isSmallScreen = useMediaQuery('(max-width:768px)');
     const navigate = useNavigate();
     const dispatch =useDispatch();
 

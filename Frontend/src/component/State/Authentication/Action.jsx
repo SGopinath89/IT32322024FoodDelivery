@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_TO_FAVORITE_FAILURE, ADD_TO_FAVORITE_REQUEST, ADD_TO_FAVORITE_SUCCESS, GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "./ActionTypes";
+import { ADD_ADDRESS_FAILURE, ADD_ADDRESS_REQUEST, ADD_ADDRESS_SUCCESS, ADD_TO_FAVORITE_FAILURE, ADD_TO_FAVORITE_REQUEST, ADD_TO_FAVORITE_SUCCESS, GET_ALL_ADDRESS_FAILURE, GET_ALL_ADDRESS_REQUEST, GET_ALL_ADDRESS_SUCCESS, GET_USER_FAILURE, GET_USER_REQUEST, GET_USER_SUCCESS, LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS, LOGOUT, REGISTER_FAILURE, REGISTER_REQUEST, REGISTER_SUCCESS } from "./ActionTypes";
 import { API_URL, api } from "../../config/api";
 
 export const registerUser = (reqData) => async (dispatch) => {
@@ -87,7 +87,7 @@ export const addToFavorite = ({ restaurantId, jwt }) => async (dispatch) => {
 
 
 export const logout = () => async (dispatch) => {
-   
+
     try {
 
         localStorage.clear();
@@ -100,3 +100,24 @@ export const logout = () => async (dispatch) => {
     }
 
 }
+
+
+export const addAddress = (reqData) => async (dispatch) => {
+    dispatch({ type: ADD_ADDRESS_REQUEST })
+    try {
+
+        const { data } = await api.post(`/api/users/address`, reqData.deliveryAddress, {
+            headers: {
+                Authorization: `Bearer ${reqData.jwt}`
+            }
+        });
+
+        dispatch({ type: ADD_ADDRESS_SUCCESS, payload: data });
+        console.log("Add Address", data);
+    } catch (error) {
+        dispatch({ type: ADD_ADDRESS_FAILURE, payload: error });
+        console.log("error", error);
+    }
+
+}
+

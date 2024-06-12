@@ -16,7 +16,7 @@ const cartReducer = (state = initialState, action) => {
         case actionTypes.GET_ALL_CART_ITEMS_REQUEST:
         case actionTypes.UPDATE_CART_ITEM_REQUEST:
         case actionTypes.REMOVE_CART_ITEM_REQUEST:
-
+       
             return {
                 ...state,
                 loading: null,
@@ -76,7 +76,8 @@ const cartReducer = (state = initialState, action) => {
         case actionTypes.FIND_CART_FAILURE:
         case actionTypes.UPDATE_CART_ITEM_FAILURE:
         case actionTypes.REMOVE_CART_ITEM_FAILURE:
-
+        case actionTypes.GET_ALL_CART_ITEMS_REQUEST:
+        case actionTypes.GET_ALL_ADDRESS_FAILURE:
             return {
                 ...state,
                 loading: false,

@@ -9,13 +9,14 @@ import { useSelector } from 'react-redux'
 const AdminRouter = () => {
 
   const { restaurant, auth } = useSelector((store) => store);
+
   const navigate = useNavigate();
 
   return (
     <div>
       <Routes>
         <Route>
-          <Route path='/*' element={restaurant?.usersRestaurant ? <Admin /> : (auth.user ? <CreateRestaurantForm /> : (navigate('/account/login')))} />
+          <Route path='/*' element={restaurant?.usersRestaurant ? <Admin /> : (<CreateRestaurantForm /> )} />
         </Route>
       </Routes>
     </div>

@@ -18,12 +18,12 @@ export const findCart = (token) => {
                 }
             }
             );
-            
-            console.log("My Cart",response.data);
+
+            console.log("My Cart", response.data);
             dispach({ type: FIND_CART_SUCCESS, payload: response.data });
 
         } catch (error) {
-            console.log("error show cart",error);
+            console.log("error show cart", error);
             dispach({ type: FIND_CART_FAILURE, payload: error });
         }
     }
@@ -47,11 +47,11 @@ export const getAllCartItems = (reqData) => {
             );
 
             dispach({ type: GET_ALL_CART_ITEMS_SUCCESS, payload: response.data });
-            console.log("All Cart Items",response.data);
+            console.log("All Cart Items", response.data);
 
         } catch (error) {
             console.log(error).
-            dispach({ type: GET_ALL_CART_ITEMS_FAILURE, payload: error });
+                dispach({ type: GET_ALL_CART_ITEMS_FAILURE, payload: error });
         }
     }
 
@@ -72,7 +72,7 @@ export const addItemToCart = (reqData) => {
                 }
             }
             );
-            console.log("Add to cart ok",data);
+            console.log("Add to cart ok", data);
             dispach({ type: ADD_ITEM_TO_CART_SUCCESS, payload: data });
 
         } catch (error) {
@@ -80,6 +80,7 @@ export const addItemToCart = (reqData) => {
             dispach({ type: ADD_ITEM_TO_CART_FAILURE, payload: error.message });
         }
     }
+
 
 }
 
@@ -100,7 +101,7 @@ export const updateCartItem = (reqData) => {
             );
 
             dispach({ type: UPDATE_CART_ITEM_SUCCESS, payload: data });
-            console.log("Cart Item Update",data);
+            console.log("Cart Item Update", data);
         } catch (error) {
             console.log(error);
             dispach({ type: UPDATE_CART_ITEM_FAILURE, payload: error.message });
@@ -127,7 +128,7 @@ export const removeCartItem = ({ cartItemId, jwt }) => {
             );
 
             dispach({ type: REMOVE_CART_ITEM_SUCCESS, payload: cartItemId });
-            console.log("Remove Cart Item ",data);
+            console.log("Remove Cart Item ", data);
 
         } catch (error) {
             console.log(error);
@@ -161,3 +162,4 @@ export const clearCartAction = () => {
     }
 
 }
+

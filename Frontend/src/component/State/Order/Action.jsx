@@ -13,7 +13,7 @@ export const createOrder = (reqData) => {
             {
                 deliveryAddress:reqData.deliveryAddress,
                 restaurantId:reqData.restaurantId,
-                mobile:reqData.mobile
+                
             },
                 {
                     headers: {

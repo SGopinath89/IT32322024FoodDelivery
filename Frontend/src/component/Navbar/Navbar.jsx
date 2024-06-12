@@ -7,7 +7,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCartItems } from '../State/Cart/Action';
+
 
 const Navbar = () => {
     const navigate = useNavigate();
@@ -20,7 +20,7 @@ const Navbar = () => {
         if (auth.user.role === "ROLE_CUSTOMER") {
             navigate("/profile");
         } else {
-            navigate("/admin/restaurant");
+            navigate("/admin/restaurants");
         }
     }
 

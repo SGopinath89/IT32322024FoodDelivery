@@ -6,19 +6,17 @@ import { getAllRestaurantAction } from '../State/Restaurant/Action';
 const Favorites = () => {
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getAllRestaurantAction());
-  }, [dispatch]);
 
   const { auth, restaurant } = useSelector(store => store);
 
+ 
  
   const userFavorites = auth?.favorites && restaurant?.restaurants
     ? restaurant.restaurants.filter(item1 => auth.favorites.some(item2 => item1.id === item2.id))
     : [];
 
   
-
+  
   return (
     <div>
       <h1 className='py-5 text-xl font-semibold text-center'>My Favorites</h1>

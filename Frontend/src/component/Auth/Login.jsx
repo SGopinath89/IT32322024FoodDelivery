@@ -22,7 +22,7 @@ const Login = () => {
   useEffect(() => {
     if (localStorage.getItem("jwt")) {
       
-      dispatch(logout());
+     dispatch(logout());
     }
   }, [])
 

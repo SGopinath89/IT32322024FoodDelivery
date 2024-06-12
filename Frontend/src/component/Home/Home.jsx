@@ -15,9 +15,9 @@ const Home = () => {
 
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt");
-    const { restaurant, auth } = useSelector(store => store);
+    const { restaurant } = useSelector(store => store);
 
-    const [data, setData] = useState([]);
+
 
 
     useEffect(() => {
@@ -52,10 +52,24 @@ const Home = () => {
             <Divider />
 
             <section className='px-5 lg:px-20 pt-10'>
-                <h1 className='text-2xl font-semibold text-gray-400 pb-8'>All Restaurants </h1>
+                <h1 className='text-2xl font-semibold text-gray-400 pb-8'>Restaurants</h1>
                 <div className='flex flex-wrap items-center justify-around gap-5 '>
                     {
-                        restaurant?.restaurants?.map((item) => <RestaurantCard key={item?.id} item={item}  />)
+                        restaurant?.restaurants?.map((item) => <RestaurantCard key={item?.id} item={item} />)
+                    }
+                </div>
+            </section>
+
+
+            <Divider className='pt-10' />
+
+            <Divider />
+
+            <section className='px-5 lg:px-20 pt-10'>
+                <h1 className='text-2xl font-semibold text-gray-400 pb-8'>Events </h1>
+                <div className='flex flex-wrap items-center justify-around gap-5 '>
+                    {
+                        restaurant?.restaurants?.map((item) => <RestaurantCard key={item?.id} item={item} />)
                     }
                 </div>
             </section>

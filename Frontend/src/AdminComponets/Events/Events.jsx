@@ -1,43 +1,59 @@
-import { Box, Button, Grid, Modal, TextField } from '@mui/material';
 import React, { useState } from 'react';
+import { Box, Button, Grid, Modal, TextField } from '@mui/material';
 import { DatePicker, DateTimePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { creatEvent } from '../../component/State/Restaurant/Action';
+import { createEvent } from '../../component/State/Restaurant/Action';
 
 const Events = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
-  const { restaurant, restaurantOrder } = useSelector(store => store);
+  const { restaurant } = useSelector(store => store);
 
-  const [formdata, setFormdata] = useState({
+  const initialValues = {
     imageUrl: '',
     location: '',
-    name: '',
-    startedAt: null,
-    endsAt: null
+    eventName: '',
+    startDate: null,
+    endDate: null
+  };
+
+  const validationSchema = Yup.object().shape({
+    imageUrl: Yup.string()
+      .required('Image URL is required')
+      .url('Please enter a valid URL for the image'),
+    location: Yup.string()
+      .required('Location is required')
+      .min(2, 'Location must be at least 2 characters')
+      .max(100, 'Location cannot exceed 100 characters'),
+    eventName: Yup.string()
+      .required('Event Name is required')
+      .min(2, 'Event Name must be at least 2 characters')
+      .max(100, 'Event Name cannot exceed 100 characters'),
+    startDate: Yup.date()
+      .required('Start Date is required')
+      .min(new Date(), 'Start Date must be in the future'),
+    endDate: Yup.date()
+      .required('End Date is required')
+      .min(Yup.ref('startDate'), 'End Date must be after Start Date')
   });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(creatEvent({ data: formdata, jwt, restaurantId: restaurant?.usersRestaurant?.id }));
-    setFormdata({});
+  const handleSubmit = (values, { resetForm }) => {
+    dispatch(createEvent({ data: values, jwt, restaurantId: restaurant?.usersRestaurant?.id }));
+    resetForm();
+    handleClose(); // Close the dialog box
   }
 
-  const handleInputChange = (e) => {
-    setFormdata({ ...formdata, [e.target.name]: e.target.value });
-  }
-
-  const handleDateChange = (date, dateType) => {
-    const formatedDate = dayjs(date).format("MMMM DD,YYYY hh:mm A");
-    setFormdata({ ...formdata, [dateType]: formatedDate });
-
+  const handleDateChange = (date, dateType, setFieldValue) => {
+    const formatedDate = dayjs(date).format("DD MMMM YYYY hh:mm A");
+    setFieldValue(dateType, formatedDate);
   }
 
   const style = {
@@ -63,64 +79,74 @@ const Events = () => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <form onSubmit={handleSubmit}>
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <TextField
-                    name='imageUrl'
-                    label='Image URL'
-                    variant='outlined'
-                    fullWidth
-                    value={formdata.imageUrl}
-                    onChange={handleInputChange} />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    name='location'
-                    label='Location'
-                    variant='outlined'
-                    fullWidth
-                    value={formdata.location}
-                    onChange={handleInputChange} />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    name='name'
-                    label='Event Name'
-                    variant='outlined'
-                    fullWidth
-                    value={formdata.name}
-                    onChange={handleInputChange} />
-                </Grid>
-                <Grid item xs={12}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DateTimePicker']}>
-                      <DateTimePicker label="Start Date & Time"
-                        value={formdata.startedAt}
-                        onChange={(date) => handleDateChange(date, 'startedAt')}
-                        renderInput={(params) => <TextField {...params} fullWidth />}
+            <Formik
+              initialValues={initialValues}
+              validationSchema={validationSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ handleChange, setFieldValue, resetForm }) => (
+                <Form>
+                  <Grid container spacing={3}>
+                    <Grid item xs={12}>
+                      <TextField
+                        name='imageUrl'
+                        label='Image URL'
+                        variant='outlined'
+                        fullWidth
+                        onChange={handleChange}
                       />
-                    </DemoContainer>
-                  </LocalizationProvider>
-                </Grid>
-                <Grid item xs={12}>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DemoContainer components={['DateTimePicker']}>
-                      <DateTimePicker label="End Date & Time"
-                        value={formdata.endsAt}
-                        onChange={(date) => handleDateChange(date, 'endsAt')}
-                        renderInput={(params) => <TextField {...params} fullWidth />}
+                      <ErrorMessage name="imageUrl" component="div" className="error-message text-red-600" />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        name='location'
+                        label='Location'
+                        variant='outlined'
+                        fullWidth
+                        onChange={handleChange}
                       />
-                    </DemoContainer>
-                  </LocalizationProvider>
-                </Grid>
-                <Grid item xs={12}>
-                  <Button type="submit" variant="contained" fullWidth>
-                    Create Event
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
+                      <ErrorMessage name="location" component="div" className="error-message  text-red-600" />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        name='eventName'
+                        label='Event Name'
+                        variant='outlined'
+                        fullWidth
+                        onChange={handleChange}
+                      />
+                      <ErrorMessage name="eventName" component="div" className="error-message  text-red-600" />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <LocalizationProvider  dateAdapter={AdapterDayjs}>
+                        <DateTimePicker label="Start Date & Time" className='w-full'
+                          value={null} // Formik handles values
+                          onChange={(date) => handleDateChange(date, 'startDate', setFieldValue)}
+                          renderInput={(params) => <TextField {...params}  />}
+                          
+                        />
+                        <ErrorMessage name="startDate" component="div" className="error-message  text-red-600" />
+                      </LocalizationProvider>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DateTimePicker label="End Date & Time" className='w-full'
+                          value={null} // Formik handles values
+                          onChange={(date) => handleDateChange(date, 'endDate', setFieldValue)}
+                          renderInput={(params) => <TextField {...params} fullWidth />}
+                        />
+                        <ErrorMessage name="endDate" component="div" className="error-message  text-red-600" />
+                      </LocalizationProvider>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Button type="submit" variant="contained" fullWidth>
+                        Create Event
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Form>
+              )}
+            </Formik>
           </Box>
         </Modal>
       </div>

@@ -26,12 +26,12 @@ const Admin = () => {
 
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    dispatch(getRestaurantCategory({ jwt, restaurantId: restaurantId }));
-    dispatch(fetchRestaurantsOrder({ jwt, restaurantId: restaurantId }));
+  //   dispatch(getRestaurantCategory({ jwt, restaurantId: restaurantId }));
+  //   dispatch(fetchRestaurantsOrder({ jwt, restaurantId: restaurantId }));
 
-  }, []);
+  // }, []);
 
   const handleClose = () => {
 

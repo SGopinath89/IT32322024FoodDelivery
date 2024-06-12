@@ -188,14 +188,14 @@ export const updateRestaurantStatus = ({ restaurantId, jwt }) => {
 }
 
 
-export const creatEvent = ({ data, jwt, restaurantId }) => {
-
+export const createEvent = ({ data, jwt, restaurantId }) => {
+console.log(data)
     return async (dispatch) => {
 
         dispatch({ type: CREATE_EVENTS_REQUEST });
         try {
 
-            const { response } = await api.post(`/api/admin/events/restaurant/${restaurantId}`, data,
+            const  response = await api.post(`/api/admin/event/create/${restaurantId}`, data,
                 {
                     headers: {
                         Authorization: `Bearer ${jwt}`
@@ -216,14 +216,14 @@ export const creatEvent = ({ data, jwt, restaurantId }) => {
 }
 
 
-export const getAllEvents = (token) => {
+export const getAllEvents = (jwt) => {
 
     return async (dispatch) => {
 
         dispatch({ type: GET_ALL_EVENTS_REQUEST });
         try {
 
-            const { response } = await api.get("/api/events",
+            const response = await api.get("/api/event/all",
                 {
                     headers: {
                         Authorization: `Bearer ${jwt}`

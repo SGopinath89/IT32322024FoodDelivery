@@ -1,15 +1,31 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import EventCard from './EventCard'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllEvents } from '../State/Restaurant/Action'
 
 const Event = () => {
-  return (
-    <div className='mt-5 px-5 py-5 flex flex-wrap gap-5'>
+  const dispatch = useDispatch();
+  const { auth, restaurant } = useSelector(store => store);
 
-      {
-        [1, 2, 3, 4, 5, 6, 7, 8, , 9].map(item =>
-          <EventCard key={item} />
-        )
-      }
+  useEffect(() => {
+    if (auth.jwt) {
+      dispatch(getAllEvents(auth.jwt));
+    }
+  }, [auth.jwt, dispatch]);
+
+  return (
+    <div>
+      {restaurant?.restaurantsEvents && restaurant?.restaurantsEvents.length > 0 ? (
+        <div className='mt-5 px-5 py-5 flex flex-wrap gap-5'>
+          {restaurant.restaurantsEvents.map(event => (
+            <EventCard key={event.id} event={event} />
+          ))}
+        </div>
+      ) : (
+        <div className='flex justify-center items-center h-80 '>
+          <p className='text-gray-500 '>No Events Available</p>
+        </div>
+      )}
     </div>
   )
 }

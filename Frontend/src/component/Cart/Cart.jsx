@@ -28,6 +28,8 @@ const Cart = () => {
 
     const { cart, auth } = useSelector(store => store);
     const navigate = useNavigate();
+    const [open, setOpen] = useState(false);
+    const handleClose = () => setOpen(false);
     const createOrderUsingSelectedAddress = () => {
 
     }
@@ -42,30 +44,27 @@ const Cart = () => {
 
         const data = {
             jwt: localStorage.getItem("jwt"),
-            mobile: values.mobile,
+
             restaurantId: cart.cartItems[0].food?.restaurant.id,
             deliveryAddress: {
                 fullName: auth.user?.fullName,
                 streetAddress: values.streetAddress,
                 city: values.city,
-
-
-
+                mobile: values.mobile,
+                locationType: values.location
             }
         }
-
-
-
         dispatch(createOrder(data));
     }
 
-    const [open, setOpen] = useState(false);
-    const handleClose = () => setOpen(false);
+
 
     const initialValues = {
 
-        streetAddress: "",
-        city: "",
+        location: '',
+        streetAddress: '',
+        mobile: '',
+        city: '',
 
     }
 
@@ -73,7 +72,7 @@ const Cart = () => {
 
         streetAddress: Yup.string().required("Street Address is required"),
         mobile: Yup.string().required("Mobile is required"),
-
+        location: Yup.string().required('Location Type is required'),
         city: Yup.string().required("City is required")
 
     })
@@ -135,7 +134,7 @@ const Cart = () => {
 
                         <div className='flex gap-5 flex-wrap justify-center'>
                             {
-                                [1, 2, 3, 4].map(item =>
+                                auth?.address?.map(item =>
                                     <AddressCard key={item} handleSelectAddress={createOrderUsingSelectedAddress} item={item} showbtn={true} />
                                 )
                             }
@@ -171,7 +170,19 @@ const Cart = () => {
                             <Form>
                                 <Grid container spacing={2} >
                                     <Grid item xs={12}> <h1 className='flex font-bold text-xl text-gray-400 justify-center'>Add Address</h1></Grid>
+
                                     <Grid item xs={12}>
+                                        <Field
+                                            as={TextField}
+                                            name="location"
+                                            label="Location Type"
+                                            fullWidth
+                                            variant="outlined"
+                                            helperText={<ErrorMessage name="location" />}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+
                                         <Field
                                             as={TextField}
                                             name="streetAddress"
