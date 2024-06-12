@@ -27,6 +27,9 @@ public class User {
 
    private String email;
 
+   @OneToOne
+   private Cart cart;
+
    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
    private String password;
 

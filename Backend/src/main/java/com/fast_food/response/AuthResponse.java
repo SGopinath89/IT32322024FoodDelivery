@@ -1,9 +1,12 @@
 package com.fast_food.response;
 
+import com.fast_food.dto.RestaurantDto;
 import com.fast_food.model.USER_ROLE;
-import com.fast_food.model.User;
+
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Data
