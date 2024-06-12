@@ -20,7 +20,7 @@ public class Restaurant {
     @GeneratedValue(strategy = GenerationType.AUTO )
     private  Long id;
 
-    @OneToOne
+    @ManyToOne
     private User owner;
 
     private String name;
@@ -36,6 +36,7 @@ public class Restaurant {
 
     private String openingHours;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL ,orphanRemoval = true)
     private List<Order> orders=new ArrayList<>();
 
@@ -50,5 +51,8 @@ public class Restaurant {
     @JsonIgnore
     @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
     private  List<Food> foods=new ArrayList<>();
+
+    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.ALL)
+    private List<Event> events=new ArrayList<>();
 
 }
