@@ -1,6 +1,6 @@
 import { api } from '../../config/api';
 import { GET_RESTAURANTS_ORDER_FAILURE, GET_RESTAURANTS_ORDER_REQUEST, GET_RESTAURANTS_ORDER_SUCCESS, UPDATE_ORDER_STATUS_FAILURE, UPDATE_ORDER_STATUS_REQUEST, UPDATE_ORDER_STATUS_SUCCESS } from './ActionTypes';
-
+import Swal from 'sweetalert2';
 export const updateOrderStatus = ({ orderId, orderStatus, jwt }) => {
 
     return async (dispatch) => {
@@ -14,7 +14,12 @@ export const updateOrderStatus = ({ orderId, orderStatus, jwt }) => {
                     Authorization: `Bearer ${jwt}`
                 }
             });
-
+            await Swal.fire({
+                title: "update order status succesfully",
+               timer:1500,
+               showConfirmButton:false,
+                icon: "success"
+              });
             const updatedOrder = response.data;
             dispatch({ type: UPDATE_ORDER_STATUS_SUCCESS, payload: updatedOrder });
             console.log("Status Updated", updatedOrder);

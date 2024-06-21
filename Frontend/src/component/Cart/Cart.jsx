@@ -30,10 +30,7 @@ const Cart = () => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const handleClose = () => setOpen(false);
-    const createOrderUsingSelectedAddress = () => {
-
-    }
-
+   
     const handleOpenAddresModal = () => {
         setOpen(true);
     }
@@ -79,7 +76,7 @@ const Cart = () => {
 
     return (
         <>
-            <main className='lg:flex justify-between '>
+            <main className='justify-between lg:flex '>
 
                 <section className='lg:w-[30%] space-y-6 lg:min-h-screen pt-10'>
 
@@ -90,7 +87,7 @@ const Cart = () => {
 
                         )) : (
                             <div className='px-20'>
-                                {/* <center className='text-gray-500 p-5'>Cart Empty</center> */}
+                                {/* <center className='p-5 text-gray-500'>Cart Empty</center> */}
                                 <div className='flex justify-center'><Button onClick={() => navigate("/profile/favorits")} fullWidth variant='outlined'>Add Items</Button></div>
                             </div>
                         )
@@ -99,10 +96,9 @@ const Cart = () => {
                     <Divider />
 
 
-                    <div className='billDetails px-5 text-sm'>
-                        <p className='font-extralight py-5'>Bill Details</p>
-                        <div className='space-y-3 pb-3
-                    '>
+                    <div className='px-5 text-sm billDetails'>
+                        <p className='py-5 font-extralight'>Bill Details</p>
+                        <div className='pb-3 space-y-3 '>
 
                             <div className='flex justify-between text-gray-400'>
                                 <p>Item Total</p>
@@ -130,19 +126,19 @@ const Cart = () => {
 
                 <section className='lg:w-[70%] flex justify-center px-5 pb-10 lg:pb-0'>
                     <div>
-                        <h1 className='text-center font-semibold text-2xl py-10'>Choose Dlivery Address</h1>
+                        <h1 className='py-10 text-2xl font-semibold text-center'>Choose Dlivery Address</h1>
 
-                        <div className='flex gap-5 flex-wrap justify-center'>
+                        <div className='flex flex-wrap justify-center gap-5'>
                             {
                                 auth?.address?.map(item =>
-                                    <AddressCard key={item} handleSelectAddress={createOrderUsingSelectedAddress} item={item} showbtn={true} />
+                                    <AddressCard key={item} item={item} showbtn={true} />
                                 )
                             }
-                            <Card className='flex gap-5 w-64 p-5'>
+                            <Card className='flex w-64 gap-5 p-5'>
 
                                 <AddLocationIcon />
                                 <div className='space-y-3 text-gray-500'>
-                                    <h1 className='font-semibold text-lg text-white'>Add New Address</h1>
+                                    <h1 className='text-lg font-semibold text-white'>Add New Address</h1>
                                     {<Button variant='contained' fullWidth onClick={handleOpenAddresModal} >Add</Button>}
                                 </div>
 
@@ -169,7 +165,7 @@ const Cart = () => {
                         >
                             <Form>
                                 <Grid container spacing={2} >
-                                    <Grid item xs={12}> <h1 className='flex font-bold text-xl text-gray-400 justify-center'>Add Address</h1></Grid>
+                                    <Grid item xs={12}> <h1 className='flex justify-center text-xl font-bold text-gray-400'>Add Address</h1></Grid>
 
                                     <Grid item xs={12}>
                                         <Field

@@ -22,12 +22,15 @@
     "formik": "^2.4.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-loading-screen": "^0.0.17",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.2",
     "react-slick": "^0.30.2",
+    "react-spinners": "^0.13.8",
     "redux": "^5.0.1",
     "redux-thunk": "^3.1.0",
     "slick-carousel": "^1.8.1",
+    "sweetalert2": "^11.12.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {
