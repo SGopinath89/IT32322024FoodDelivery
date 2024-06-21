@@ -1,6 +1,6 @@
 import { api } from '../../config/api';
 import { CREATE_INGREDIENT_CATEGORY_FAILURE, CREATE_INGREDIENT_CATEGORY_REQUEST, CREATE_INGREDIENT_CATEGORY_SUCCESS, CREATE_INGREDIENT_FAILURE, CREATE_INGREDIENT_REQUEST, CREATE_INGREDIENT_SUCCESS, GET_INGREDIENTS, GET_INGREDIENT_CATEGORY_FAILURE, GET_INGREDIENT_CATEGORY_REQUEST, GET_INGREDIENT_CATEGORY_SUCCESS, UPDATE_STOCKS } from './ActionTypes';
-
+import Swal from 'sweetalert2'
 
 export const getIngredientsOfRestaurant = ({ id, jwt }) => {
 
@@ -43,7 +43,13 @@ export const createIngredient = ({ data, jwt }) => {
                 }
             }
             );
-
+            await Swal.fire({
+                title: "ingredients create succesfully",
+                position: "top-end",
+               timer:1500,
+               showConfirmButton:false,
+                icon: "success"
+              });
             dispach({ type: CREATE_INGREDIENT_SUCCESS, payload: response.data });
             console.log("Create ingredient", data);
         } catch (error) {
@@ -69,7 +75,13 @@ export const createIngredientategory = ({ data, jwt }) => {
                 }
             }
             );
-
+            await Swal.fire({
+                title: "create category succesfully",
+                position: "top-end",
+               timer:1500,
+               showConfirmButton:false,
+                icon: "success"
+              });
             dispach({ type: CREATE_INGREDIENT_CATEGORY_SUCCESS, payload: response.data });
             console.log("Create ingredient category", data);
         } catch (error) {
@@ -122,7 +134,13 @@ export const updateStockOfIngredient = ({ id, jwt }) => {
                 }
             }
             );
-
+            await Swal.fire({
+                title: "update stock succesfully",
+               timer:1500,
+               position: "top-end",
+               showConfirmButton:false,
+                icon: "success"
+              });
             dispach({ type: UPDATE_STOCKS, payload: data });
             console.log("Update stocks", data)
         } catch (error) {

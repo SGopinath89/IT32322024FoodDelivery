@@ -1,6 +1,6 @@
 import { api } from "../../config/api";
 import { CREATE_MENU_ITEM_FAILURE, CREATE_MENU_ITEM_REQUEST, CREATE_MENU_ITEM_SUCCSESS, DELETE_MENUE_ITEM_FAILURE, DELETE_MENUE_ITEM_REQUEST, DELETE_MENUE_ITEM_SUCCSESS, GET_ALL_MENUE_ITEMS_BY_RESTUARANTID_FAILURE, GET_ALL_MENUE_ITEMS_BY_RESTUARANTID_REQUEST, GET_ALL_MENUE_ITEMS_BY_RESTUARANTID_SUCCSESS, GET_MENUE_ITEMS_BY_RESTUARANTID_FAILURE, GET_MENUE_ITEMS_BY_RESTUARANTID_REQUEST, GET_MENUE_ITEMS_BY_RESTUARANTID_SUCCSESS, SEARCH_MENU_ITEM_FAILURE, SEARCH_MENU_ITEM_REQUEST, SEARCH_MENU_ITEM_SUCCSESS, UPDATE_MENUE_ITEMS_AVAILABILITY_FAILURE, UPDATE_MENUE_ITEMS_AVAILABILITY_REQUEST, UPDATE_MENUE_ITEMS_AVAILABILITY_SUCCSESS } from "./ActionTypes";
-
+import Swal from 'sweetalert2';
 
 export const createMenuItem = ({ menu, jwt }) => {
 
@@ -16,7 +16,13 @@ export const createMenuItem = ({ menu, jwt }) => {
                     }
                 }
             );
-
+            await Swal.fire({
+                title: "create menu item succesfully",
+                position: "top-end",
+               timer:1500,
+               showConfirmButton:false,
+                icon: "success"
+              });
             console.log("Created Menu ", data);
             dispatch({ type: CREATE_MENU_ITEM_SUCCSESS, payload: data });
         } catch (error) {
@@ -144,7 +150,13 @@ export const updateMenuItemsAvailability = ({ foodId, jwt }) => {
                     }
                 }
             );
-
+            await Swal.fire({
+                title: "update menu item succesfully",
+                position: "top-end",
+               timer:1500,
+               showConfirmButton:false,
+                icon: "success"
+              });
             console.log("Update menuItems Availability ", data);
             dispatch({ type: UPDATE_MENUE_ITEMS_AVAILABILITY_SUCCSESS, payload: data });
         } catch (error) {
@@ -170,7 +182,13 @@ export const deleteFoodAction = ({ foodId, jwt }) => {
                     }
                 }
             );
-
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "delete food successfully",
+                showConfirmButton: false,
+                timer: 1500
+              });
             console.log("Delete food ", data);
             dispatch({ type: DELETE_MENUE_ITEM_SUCCSESS, payload: foodId });
         } catch (error) {

@@ -6,12 +6,17 @@ import React, { useEffect, useState } from 'react'
 import { categorizeIngrdients } from '../../utils/categrizeingredinets';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart, getAllCartItems } from '../State/Cart/Action';
+import { useNavigate } from 'react-router-dom';
+
 
 const MenuCard = ({ item }) => {
 
     const [selectedIngrdients, setSelectedIngredinets] = useState([]);
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt");
+    
+    const naviagte=useNavigate();
+    
 
 
     const handleAddItemToCart = (e) => {
@@ -25,10 +30,10 @@ const MenuCard = ({ item }) => {
                 ingredients: selectedIngrdients
             }
         };
-
+        
         dispatch(addItemToCart(reqData));
 
-
+        naviagte("/cart");
     }
 
 
@@ -53,12 +58,12 @@ const MenuCard = ({ item }) => {
                     aria-controls="panel1-content"
                     id="panel1-header"
                 >
-                    <div className='lg:flex items-center justify-between lg:gap-5'>
-                        <div className='lg:flex items-center ' >
+                    <div className='items-center justify-between lg:flex lg:gap-5'>
+                        <div className='items-center lg:flex ' >
                             <img className='w-[7rem] h-[7rem] object-cover' src={item.images[0]} alt="" />
                         </div>
                         <div className='space-y-1 lg:space-y-5 lg:max-w-2xl'>
-                            <p className='font-semibold text-xl'>{item.name}</p>
+                            <p className='text-xl font-semibold'>{item.name}</p>
                             <p >{item.price} LKR</p>
                             <p className='text-gray-400'>{item.description}</p>
                         </div>
@@ -68,7 +73,7 @@ const MenuCard = ({ item }) => {
 
                     <form onSubmit={handleAddItemToCart}>
 
-                        <div className='flex gap-5 flex-wrap'>
+                        <div className='flex flex-wrap gap-5'>
                             {
                                 Object.keys(categorizeIngrdients(item.ingredients)).map(category =>
                                     <div>
