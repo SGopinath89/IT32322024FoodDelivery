@@ -30,7 +30,7 @@ const Cart = () => {
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const handleClose = () => setOpen(false);
-   
+
     const handleOpenAddresModal = () => {
         setOpen(true);
     }
@@ -39,19 +39,26 @@ const Cart = () => {
 
     const handleOnSubmit = (values) => {
 
-        const data = {
-            jwt: localStorage.getItem("jwt"),
 
-            restaurantId: cart.cartItems[0].food?.restaurant.id,
-            deliveryAddress: {
-                fullName: auth.user?.fullName,
-                streetAddress: values.streetAddress,
-                city: values.city,
-                mobile: values.mobile,
-                locationType: values.location
-            }
+
+        {
+            cart.cartItems?.map((item) => {
+                const data = {
+                    jwt: localStorage.getItem("jwt"),
+
+                    restaurantId: item.food?.restaurant.id,
+                    deliveryAddress: {
+                        fullName: auth.user?.fullName,
+                        streetAddress: values.streetAddress,
+                        city: values.city,
+                        mobile: values.mobile,
+                        locationType: values.location
+                    }
+                }
+                dispatch(createOrder(data));
+
+            })
         }
-        dispatch(createOrder(data));
     }
 
 
