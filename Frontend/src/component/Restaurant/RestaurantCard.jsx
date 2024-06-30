@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToFavorite } from '../State/Authentication/Action';
 import { isPresentInFavorites } from '../config/logic';
-
+import Swal from 'sweetalert2'
 
 const RestaurantCard = ({ item }) => {
 
@@ -22,14 +22,14 @@ const RestaurantCard = ({ item }) => {
         if (auth.user) {
             dispatch(addToFavorite({ restaurantId: item.id, jwt }));
         } else {
-            alert("You must login first");
+            Swal.fire("You must login first");
         }
 
     }
 
     const handleNavigateToRestaurant = () => {
         if (!auth.user) {
-            alert("You must login first");
+            Swal.fire("You must login first");
         }
         else if (item.open) {  //set logic correct after test
 
@@ -50,10 +50,10 @@ const RestaurantCard = ({ item }) => {
                     label={item.open ? 'Open' : 'Closed'}
                 />
             </div>
-            <div className='p-4 textPart lg:flex w-full justify-between'>
+            <div className='justify-between w-full p-4 textPart lg:flex'>
                 <div className='space-y-1'>
-                    <p onClick={handleNavigateToRestaurant} className='font-semibold text-lg cursor-pointer'>{item.name || item.title}</p>
-                    <p className='text-gray-500 text-sm'>{item.description}</p>
+                    <p onClick={handleNavigateToRestaurant} className='text-lg font-semibold cursor-pointer'>{item.name || item.title}</p>
+                    <p className='text-sm text-gray-500'>{item.description}</p>
                 </div>
                 <div>
                     <IconButton onClick={handleAddToFavorites}>

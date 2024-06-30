@@ -7,13 +7,13 @@ import PersonIcon from '@mui/icons-material/Person';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
+import Swal from 'sweetalert2';
 
 const Navbar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { auth, cart } = useSelector(store => store);
-    const [authenticate, setAuthenticate] = useState(false);
+
 
 
     const handleAvatarClick = () => {
@@ -28,17 +28,20 @@ const Navbar = () => {
         if (auth.user) {
             navigate("/cart");
         } else {
-            setAuthenticate(true);
-            setTimeout(() => {
-                setAuthenticate(false);
-            }, 2000);
+            Swal.fire({
+                icon: "error",
+                title: "Waring",
+                text: "You must login.!",
+                footer: '<a href="/account/login">Click hear to login</a>'
+                
+            });
         }
     }
 
     return (
         <>
             <div className='px-5 sticky top-0 z-50 py-[0.8rem] bg-black lg:px-20 flex justify-between'>
-                <div className='lg:mr-10 cursor-pointer flex items-center space-x-4'>
+                <div className='flex items-center space-x-4 cursor-pointer lg:mr-10'>
                     <li className='list-none logo text-[28px]'>
                         <Link to='/'><div>FAST   FOODS</div></Link>
                     </li>
@@ -71,12 +74,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </div >
-            {authenticate && (
-                <Alert severity="error" sx={{ position: 'fixed', top: 10, right: 50 }}>
-                    Please you need to login first
-                </Alert>
-            )
-            }
+           
         </>
     )
 }
