@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { createIngredient} from '../../component/State/Ingredients/Action';
 
-const CreateIngredientForm = () => {
+const CreateIngredientForm = ({handleClose}) => {
   const dispatch = useDispatch();
   const jwt = localStorage.getItem('jwt');
   const { ingredient, restaurant } = useSelector(store => store);
@@ -49,6 +49,7 @@ const CreateIngredientForm = () => {
     };
 
     dispatch(createIngredient({ jwt, data }));
+    handleClose();
   };
 
   const handleInputChange = (e) => {
@@ -62,7 +63,7 @@ const CreateIngredientForm = () => {
   return (
     <div className="">
       <div className="p-5">
-        <h1 className="text-gray-400 text-center text-xl pb-10">Create Ingredient</h1>
+        <h1 className="pb-10 text-xl text-center text-gray-400">Create Ingredient</h1>
         <form className="space-y-5 " onSubmit={handleSubmit}>
           <TextField
             fullWidth

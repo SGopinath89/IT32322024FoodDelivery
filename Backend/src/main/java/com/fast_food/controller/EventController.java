@@ -50,4 +50,18 @@ public class EventController {
         return new ResponseEntity<>(events, HttpStatus.CREATED);
 
     }
+
+    @GetMapping("event/id/{id}")
+    public ResponseEntity<List<Event>> getEventById(
+            @RequestHeader("Authorization") String jwt,
+            @PathVariable Long id
+
+    ) throws Exception {
+
+        List<Event> events =eventService.getEvent(id);
+
+
+        return new ResponseEntity<>(events, HttpStatus.CREATED);
+
+    }
 }

@@ -8,6 +8,7 @@ import { uploadImageToCloudinary } from '../util/UploadToCloudinary';
 import { useDispatch, useSelector } from 'react-redux';
 import { createMenuItem } from '../../component/State/Menu/Action';
 import { getIngredientsOfRestaurant } from '../../component/State/Ingredients/Action';
+import { useNavigate } from 'react-router-dom';
 
 const initialValues = {
     name: "Cheese Pizza",
@@ -33,7 +34,7 @@ const CreateMenuForm = () => {
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt");
     const { restaurant, ingredient } = useSelector(store => store);
-
+    const navigate=useNavigate();
     useEffect(() => {
         if (restaurant?.usersRestaurant?.id) {
             dispatch(getIngredientsOfRestaurant({
@@ -52,7 +53,7 @@ const CreateMenuForm = () => {
             values.restaurantId = restaurant.usersRestaurant.id;
             dispatch(createMenuItem({ menu: values, jwt }));
 
-            console.log(values);
+        //navigate('/admin/restaurants/menu');
         }
     });
 
@@ -76,9 +77,9 @@ const CreateMenuForm = () => {
     };
 
     return (
-        <div className='py-10 px-2 lg:flex items-center justify-center min-h-screen'>
+        <div className='items-center justify-center min-h-screen px-2 py-10 lg:flex'>
             <div className='lg:max-w-4xl'>
-                <h1 className='font-bold text-2xl text-center py-2'>
+                <h1 className='py-2 text-2xl font-bold text-center'>
                     Add New Menu
                 </h1>
 
@@ -94,11 +95,11 @@ const CreateMenuForm = () => {
                                 accept='image/*'
                             />
                             <label className='relative' htmlFor="fileInput">
-                                <span className='w-24 h-24 cursor-pointer flex items-center justify-center p-3 border rounded-md border-gray-600'>
+                                <span className='flex items-center justify-center w-24 h-24 p-3 border border-gray-600 rounded-md cursor-pointer'>
                                     <AddPhotoAlternateIcon className='text-gray-600' />
                                 </span>
                                 {uploadImage && (
-                                    <div className='absolute left-0 right-0 top-0 bottom-0 flex items-center justify-center'>
+                                    <div className='absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center'>
                                         <CircularProgress />
                                     </div>
                                 )}
@@ -108,7 +109,7 @@ const CreateMenuForm = () => {
                                 {formik.values?.images?.map((image, index) => (
                                     <div key={index} className='relative'>
                                         <img
-                                            className='w-24 h-24 object-cover'
+                                            className='object-cover w-24 h-24'
                                             src={image}
                                             alt={`Uploaded Image ${index}`}
                                         />

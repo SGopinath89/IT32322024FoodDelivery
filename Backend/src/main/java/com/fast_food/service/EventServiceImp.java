@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class EventServiceImp implements EventService{
@@ -63,7 +65,15 @@ public class EventServiceImp implements EventService{
     }
 
     @Override
-    public Event getEvent(Event event, Long id) throws Exception {
-        return null;
+    public List<Event> getEvent(Long id) throws Exception {
+     List<Event> events=eventRepository.findAll();
+        ArrayList<Event> restaurantEvents= new ArrayList<>();
+
+        for (Event e:events){
+         if (Objects.equals(e.getRestaurant().getId(), id)){
+             restaurantEvents.add(e);
+         }
+     }
+     return  restaurantEvents;
     }
 }

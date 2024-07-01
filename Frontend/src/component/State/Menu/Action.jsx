@@ -18,7 +18,7 @@ export const createMenuItem = ({ menu, jwt }) => {
             );
             await Swal.fire({
                 title: "create menu item succesfully",
-                position: "top-end",
+                position: "center",
                timer:1500,
                showConfirmButton:false,
                 icon: "success"
@@ -152,7 +152,7 @@ export const updateMenuItemsAvailability = ({ foodId, jwt }) => {
             );
             await Swal.fire({
                 title: "update menu item succesfully",
-                position: "top-end",
+                position: "center",
                timer:1500,
                showConfirmButton:false,
                 icon: "success"
@@ -183,7 +183,7 @@ export const deleteFoodAction = ({ foodId, jwt }) => {
                 }
             );
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "delete food successfully",
                 showConfirmButton: false,

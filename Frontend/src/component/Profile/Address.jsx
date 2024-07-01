@@ -57,7 +57,7 @@ const Address = () => {
       },
     };
 
-    console.log(data)
+
 
     dispatch(addAddress(data))
     handleClose();
@@ -67,17 +67,17 @@ const Address = () => {
 
   return (
     <div>
-      <section className='flex justify-center px-5 pb-10 lg:pb-0  '>
+      <section className='flex justify-center px-5 pb-10 lg:pb-0 '>
         <div>
-          <h1 className='text-center font-semibold text-2xl py-10'>Address</h1>
-          <div className='flex gap-5 flex-wrap justify-center pb-20'>
+          <h1 className='py-10 text-2xl font-semibold text-center'>Address</h1>
+          <div className='flex flex-wrap justify-center gap-5 pb-20'>
             {auth?.address?.map((item, index) => (
               <AddressCard key={index} item={item}  />
             ))}
-            <Card className='flex gap-5 w-64 p-5'>
+            <Card className='flex w-64 gap-5 p-5'>
               <AddLocationIcon />
               <div className='space-y-3 text-gray-500'>
-                <h1 className='font-semibold text-lg'>Add New Address</h1>
+                <h1 className='text-lg font-semibold'>Add New Address</h1>
                 <Button variant='contained' fullWidth onClick={handleOpenAddressModal}>
                   Add
                 </Button>
@@ -105,7 +105,7 @@ const Address = () => {
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <h1 className='flex font-bold text-xl text-gray-400 justify-center'>Add Address</h1>
+                        <h1 className='flex justify-center text-xl font-bold text-gray-400'>Add Address</h1>
                       </Grid>
                       <Grid item xs={12}>
                         <Field

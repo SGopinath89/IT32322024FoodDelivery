@@ -59,6 +59,7 @@ const Cart = () => {
 
             })
         }
+        handleClose();
     }
 
 
@@ -95,7 +96,7 @@ const Cart = () => {
                         )) : (
                             <div className='px-20'>
                                 {/* <center className='p-5 text-gray-500'>Cart Empty</center> */}
-                                <div className='flex justify-center'><Button onClick={() => navigate("/profile/favorits")} fullWidth variant='outlined'>Add Items</Button></div>
+                                <div className='flex justify-center'><Button onClick={() => navigate("../profile/favorites")} fullWidth variant='outlined'>Add Items</Button></div>
                             </div>
                         )
 

@@ -45,7 +45,7 @@ export const createIngredient = ({ data, jwt }) => {
             );
             await Swal.fire({
                 title: "ingredients create succesfully",
-                position: "top-end",
+                position: "center",
                timer:1500,
                showConfirmButton:false,
                 icon: "success"
@@ -77,7 +77,7 @@ export const createIngredientategory = ({ data, jwt }) => {
             );
             await Swal.fire({
                 title: "create category succesfully",
-                position: "top-end",
+                position: "center",
                timer:1500,
                showConfirmButton:false,
                 icon: "success"
@@ -137,7 +137,7 @@ export const updateStockOfIngredient = ({ id, jwt }) => {
             await Swal.fire({
                 title: "update stock succesfully",
                timer:1500,
-               position: "top-end",
+               position: "center",
                showConfirmButton:false,
                 icon: "success"
               });

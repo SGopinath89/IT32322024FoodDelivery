@@ -1,8 +1,13 @@
 import React from 'react'
 import { Card, CardActions, CardContent, CardMedia, IconButton, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useSelector } from 'react-redux';
 
-const EventCard = ({event}) => {
+
+const EventCard = ({ event }) => {
+    const { restaurant } = useSelector(store => store);
+ 
+
     return (
         <div>
             <Card sx={{ width: 345 }}>
@@ -11,7 +16,7 @@ const EventCard = ({event}) => {
                 />
                 <CardContent>
                     <Typography variant='h5'>
-                       {event.eventName}
+                        {event.eventName}
                     </Typography>
                     <Typography variant='body'>
                         50% off on your first order
@@ -23,9 +28,9 @@ const EventCard = ({event}) => {
                     </div>
                 </CardContent>
                 <CardActions>
-                    <IconButton>
-                        <DeleteIcon/>
-                    </IconButton>
+                    {restaurant?.usersRestaurant != null && <IconButton>
+                        <DeleteIcon />
+                    </IconButton>}
                 </CardActions>
             </Card>
         </div>

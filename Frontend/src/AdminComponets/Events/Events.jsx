@@ -6,12 +6,16 @@ import dayjs from 'dayjs';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { createEvent } from '../../component/State/Restaurant/Action';
+import { createEvent, getEventById } from '../../component/State/Restaurant/Action';
+import EventCard from '../../component/Profile/EventCard';
+import { useEffect } from 'react';
 
 const Events = () => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+
 
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
@@ -24,6 +28,13 @@ const Events = () => {
     startDate: null,
     endDate: null
   };
+
+  useEffect(() => {
+
+    dispatch(getEventById(jwt, restaurant?.usersRestaurant.id))
+
+
+  }, [])
 
   const validationSchema = Yup.object().shape({
     imageUrl: Yup.string()
@@ -68,6 +79,8 @@ const Events = () => {
     p: 4,
   };
 
+
+
   return (
     <div>
       <div className='p-5'>
@@ -95,7 +108,7 @@ const Events = () => {
                         fullWidth
                         onChange={handleChange}
                       />
-                      <ErrorMessage name="imageUrl" component="div" className="error-message text-red-600" />
+                      <ErrorMessage name="imageUrl" component="div" className="text-red-600 error-message" />
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
@@ -105,7 +118,7 @@ const Events = () => {
                         fullWidth
                         onChange={handleChange}
                       />
-                      <ErrorMessage name="location" component="div" className="error-message  text-red-600" />
+                      <ErrorMessage name="location" component="div" className="text-red-600 error-message" />
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
@@ -115,17 +128,17 @@ const Events = () => {
                         fullWidth
                         onChange={handleChange}
                       />
-                      <ErrorMessage name="eventName" component="div" className="error-message  text-red-600" />
+                      <ErrorMessage name="eventName" component="div" className="text-red-600 error-message" />
                     </Grid>
                     <Grid item xs={12}>
-                      <LocalizationProvider  dateAdapter={AdapterDayjs}>
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
                         <DateTimePicker label="Start Date & Time" className='w-full'
                           value={null} // Formik handles values
                           onChange={(date) => handleDateChange(date, 'startDate', setFieldValue)}
-                          renderInput={(params) => <TextField {...params}  />}
-                          
+                          renderInput={(params) => <TextField {...params} />}
+
                         />
-                        <ErrorMessage name="startDate" component="div" className="error-message  text-red-600" />
+                        <ErrorMessage name="startDate" component="div" className="text-red-600 error-message" />
                       </LocalizationProvider>
                     </Grid>
                     <Grid item xs={12}>
@@ -135,7 +148,7 @@ const Events = () => {
                           onChange={(date) => handleDateChange(date, 'endDate', setFieldValue)}
                           renderInput={(params) => <TextField {...params} fullWidth />}
                         />
-                        <ErrorMessage name="endDate" component="div" className="error-message  text-red-600" />
+                        <ErrorMessage name="endDate" component="div" className="text-red-600 error-message" />
                       </LocalizationProvider>
                     </Grid>
                     <Grid item xs={12}>
@@ -149,6 +162,19 @@ const Events = () => {
             </Formik>
           </Box>
         </Modal>
+      </div>
+      <div>
+        {restaurant?.events.length > 0 ? (
+          <div className='flex flex-wrap gap-5 px-5 py-5 mt-5'>
+            {restaurant.events.map(event => (
+              <EventCard key={event.id} event={event} />
+            ))}
+          </div>
+        ) : (
+          <div className='flex items-center justify-center h-80 '>
+            <p className='text-gray-500 '>No Events Available</p>
+          </div>
+        )}
       </div>
     </div>
   );

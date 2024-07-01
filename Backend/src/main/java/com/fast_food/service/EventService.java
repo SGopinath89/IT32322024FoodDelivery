@@ -15,6 +15,6 @@ public interface EventService {
 
     public Event updateEvent(Event event, Long id) throws Exception;
 
-    public Event getEvent(Event event, Long id) throws Exception;
+    public List<Event> getEvent(Long id) throws Exception;
 
 }

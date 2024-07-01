@@ -1,4 +1,4 @@
-import { Box, Card, CardHeader, IconButton, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Box, Card, CardHeader, Icon, IconButton, Modal, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import React, { useEffect } from 'react'
 import CreateIcon from '@mui/icons-material/Create';
 import CreateIngredientCategoryForm from './CreateIngredientCategoryForm';
@@ -41,7 +41,7 @@ const IngredientCategoryTable = () => {
                     sx={{ pt: 2, alignItems: "center" }}
                     action={
                         <IconButton onClick={handleOpen}>
-                            <CreateIcon />
+                            <CreateIcon/>
                         </IconButton>
 
                     }
@@ -84,7 +84,7 @@ const IngredientCategoryTable = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <CreateIngredientCategoryForm />
+                    <CreateIngredientCategoryForm handleClose={handleClose}/>
                 </Box>
             </Modal>
         </Box>

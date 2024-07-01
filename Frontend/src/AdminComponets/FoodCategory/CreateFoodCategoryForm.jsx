@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { creatCategoryAction } from '../../component/State/Restaurant/Action';
 
-const CreateFoodCategoryForm = () => {
+const CreateFoodCategoryForm = ({handleClose}) => {
 
     const dispatch = useDispatch();
     
@@ -23,6 +23,7 @@ const CreateFoodCategoryForm = () => {
             };
             dispatch(creatCategoryAction({ jwt: localStorage.getItem("jwt"), reqData: data }));
             setCategoryNameError(false); // Reset the error state if categoryName is not empty
+            handleClose();
         } else {
             setCategoryNameError(true); // Set the error state if categoryName is empty
         }
@@ -39,7 +40,7 @@ const CreateFoodCategoryForm = () => {
     return (
         <div className=''>
             <div className='p-5'>
-                <h1 className='text-gray-400 text-center text-xl pb-10'>Create Category</h1>
+                <h1 className='pb-10 text-xl text-center text-gray-400'>Create Category</h1>
                 <form className='space-y-5 ' onSubmit={handleSubmit}>
                     <TextField
                         fullWidth

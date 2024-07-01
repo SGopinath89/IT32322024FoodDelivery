@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createIngredientategory } from '../../component/State/Ingredients/Action';
 
-const CreateIngredientCategoryForm = () => {
+const CreateIngredientCategoryForm = ({ handleClose }) => {
 
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
@@ -18,9 +18,12 @@ const CreateIngredientCategoryForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevent default form submission
 
+   
     if (!formData.name.trim()) {
       setError("Please enter Ingredient Category Name");
       return;
+    }else{
+      handleClose();
     }
 
     const data = {
@@ -44,7 +47,7 @@ const CreateIngredientCategoryForm = () => {
   return (
     <div className=''>
       <div className='p-5'>
-        <h1 className='text-gray-400 text-center text-xl pb-10'>Create Ingredient Category</h1>
+        <h1 className='pb-10 text-xl text-center text-gray-400'>Create Ingredient Category</h1>
         <form className='space-y-5 ' onSubmit={handleSubmit}>
           <TextField
             fullWidth

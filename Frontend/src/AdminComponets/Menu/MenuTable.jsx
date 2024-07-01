@@ -5,13 +5,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFoodAction, getAllMenuItemsByRestaurantId } from '../../component/State/Menu/Action';
-
+import Swal from 'sweetalert2';
 
 
 
 const MenuTable = () => {
 
-   
+
 
     const navigate = useNavigate();
 
@@ -21,7 +21,23 @@ const MenuTable = () => {
 
     const handleDelete = (id) => {
 
-        dispatch(deleteFoodAction({foodId:id,jwt}));
+        Swal.fire({
+            title: "Are you sure?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#d33",
+            cancelButtonColor: "#3085d6",
+            confirmButtonText: "Delete"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                dispatch(deleteFoodAction({ foodId: id, jwt }));
+                Swal.fire({
+                    title: "Deleted!",
+                    text: "Successfully delete menu item.",
+                    icon: "success"
+                });
+            }
+        });
     }
 
     useEffect(() => {
@@ -48,7 +64,7 @@ const MenuTable = () => {
             </Card>
 
             <TableContainer component={Paper}>
-                <Table  sx={{ minWidth: 600 }} aria-label="simple table">
+                <Table sx={{ minWidth: 600 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
 
