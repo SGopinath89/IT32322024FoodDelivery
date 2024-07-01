@@ -16,7 +16,13 @@ export const registerUser = (reqData) => async (dispatch) => {
             reqData.navigate("/");
         }
 
-
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Register Ok",
+            showConfirmButton: false,
+            timer: 1500
+        });
         dispatch({ type: REGISTER_SUCCESS, payload: data.jwt });
         console.log("Register Success", data);
     } catch (error) {
