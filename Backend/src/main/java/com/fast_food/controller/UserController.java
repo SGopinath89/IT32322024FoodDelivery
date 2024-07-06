@@ -34,15 +34,37 @@ public class UserController {
     public ResponseEntity<User> addAddress(
             @RequestHeader("Authorization") String jwt,
             @RequestBody Address address
-    ) throws Exception {
+    ) {
+        try {
+            // Find the user using the JWT token
+            User user = userService.findUserByJwtToken(jwt);
 
-        User user = userService.findUserByJwtToken(jwt);
-        user.getAddresses().add(address);
+            if (user == null) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // Or appropriate status
+            }
 
-        userRepository.save(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+            // Check if the address already exists
+            boolean addressExists = user.getAddresses().stream()
+                    .anyMatch(existingAddress -> existingAddress.equals(address));
 
+            if (addressExists) {
+                return new ResponseEntity<>(user, HttpStatus.OK);
+            }
+
+            // Add the address to the user's addresses
+            user.getAddresses().add(address);
+
+            // Save the updated user
+            userRepository.save(user);
+
+            // Return the updated user object
+            return new ResponseEntity<>(user, HttpStatus.OK);
+
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
+
 
 //    @GetMapping("/address/all")
 //    public ResponseEntity<List<Address>> getAllAddress(

@@ -46,4 +46,11 @@ public class Order {
 
     private Long totalPrice;
 
+    @JsonIgnore
+    private String sessionId;
+
+    private String paymentStatus;
+
+
+
 }

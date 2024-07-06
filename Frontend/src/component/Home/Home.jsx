@@ -8,17 +8,11 @@ import { getAllEvents, getAllRestaurantAction } from '../State/Restaurant/Action
 import { useEffect } from 'react';
 import EventCard from '../Profile/EventCard';
 
-
-
-
-
 const Home = () => {
 
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt");
     const { restaurant } = useSelector(store => store);
-
-    console.log(restaurant)
 
 
     useEffect(() => {
@@ -79,7 +73,7 @@ const Home = () => {
 
             </div>}
 
-          
+
         </div>
     )
 }

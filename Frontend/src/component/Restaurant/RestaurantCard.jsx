@@ -13,10 +13,10 @@ const RestaurantCard = ({ item }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt");
-    const { auth} = useSelector(store => store);
+    const { auth } = useSelector(store => store);
 
-  
-   
+
+
     const handleAddToFavorites = () => {
 
         if (auth.user) {
@@ -34,13 +34,15 @@ const RestaurantCard = ({ item }) => {
         else if (item.open) {  //set logic correct after test
 
             navigate(`/restaurant/${item?.address?.city}/${item.name}/${item.id}`);
+        }else{
+            Swal.fire("Restaurant closed try later..");
         }
     }
 
     return (
 
-        <Card className='w-[18rem]'>
-            <div className={`${item.open ? 'cursor-pointer' : 'cursor-not-allowed'} relative`}>
+        <Card className='w-[18rem]' >
+            <div className={`${item.open ? 'cursor-pointer' : 'cursor-not-allowed'} relative`} onClick={handleNavigateToRestaurant}>
                 <img className='w-full h-[10rem] rounded-t-md object-cover' src={item.images[0]} alt="" />
 
                 <Chip

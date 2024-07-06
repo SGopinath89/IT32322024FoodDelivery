@@ -33,7 +33,7 @@ const MenuCard = ({ item }) => {
         
         dispatch(addItemToCart(reqData));
 
-        naviagte("/cart");
+        //naviagte("/cart");
     }
 
 

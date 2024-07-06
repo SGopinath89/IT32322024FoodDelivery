@@ -9,6 +9,9 @@ import Slider from 'react-slick';
 
 const MultiItemCarousel = () => {
 
+
+
+
     const settings = {
         dots: true,
         infinite: true,
