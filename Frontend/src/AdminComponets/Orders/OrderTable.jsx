@@ -1,4 +1,4 @@
-import { Avatar, AvatarGroup, Box, Button, Card, CardHeader, Chip, Menu, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Avatar, AvatarGroup, Box, Button, Card, CardHeader, Chip, Menu, MenuItem, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRestaurantsOrder, updateOrderStatus } from '../../component/State/RestaurantOrder/Action';
@@ -11,14 +11,13 @@ const orderStatus = [
 ];
 
 const OrderTable = ({ status }) => {
-
-
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt");
     const { restaurant, restaurantOrder } = useSelector(store => store);
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
     useEffect(() => {
-
         if (restaurant.usersRestaurant?.id) {
             dispatch(fetchRestaurantsOrder({
                 restaurantId: restaurant.usersRestaurant.id,
@@ -26,8 +25,6 @@ const OrderTable = ({ status }) => {
             }));
         }
     }, [dispatch, restaurant.usersRestaurant?.id, jwt]);
-
-
 
     const [menuState, setMenuState] = useState({
         anchorEl: null,
@@ -67,50 +64,59 @@ const OrderTable = ({ status }) => {
                 <Table sx={{ minWidth: 600 }} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Id</TableCell>
-                            <TableCell align="right">Image</TableCell>
-                            <TableCell align="right">Customer</TableCell>
-                            <TableCell align="right">Address</TableCell>
-                            <TableCell align="right">Mobile</TableCell>
-                            <TableCell align="right">Price</TableCell>
-                            <TableCell align="right">Name</TableCell>
-                            <TableCell align="right">Ingredients</TableCell>
-                            <TableCell align="right">Status</TableCell>
-                            <TableCell align="right">Update</TableCell>
+                            {!isMobile && <TableCell align="center">Id</TableCell>}
+                            {!isMobile && <TableCell align="center">Image</TableCell>}
+                            <TableCell align="center">Customer</TableCell>
+                            <TableCell align="center">Address</TableCell>
+                            <TableCell align="center">Mobile</TableCell>
+                            <TableCell align="center">Price</TableCell>
+                            <TableCell align="center">Name</TableCell>
+                            <TableCell align="center">Ingredients</TableCell>
+                            <TableCell align="center">Status</TableCell>
+                            {/* <TableCell align="center">Update</TableCell> */}
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {filteredOrders?.map((row) => (
                             <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                <TableCell component="th" scope="row">{row.id}</TableCell>
-                                <TableCell align="right">
-                                    <AvatarGroup>
-                                        {row?.items?.map((item, index) => (
-                                            <Avatar key={index} src={item?.food?.images[0]} />
-                                        ))}
-                                    </AvatarGroup>
+                                {!isMobile && <TableCell align="center" component="th" scope="row">{row.id}</TableCell>}
+                                {!isMobile && (
+                                    <TableCell align="center">
+                                        <AvatarGroup>
+                                            {row?.items?.map((item, index) => (
+                                                <Avatar key={index} src={item?.food?.images[0]} />
+                                            ))}
+                                        </AvatarGroup>
+                                    </TableCell>
+                                )}
+                                <TableCell align="center">{row?.customer?.fullName}</TableCell>
+                                <TableCell align="center">
+                                    <p>{row?.deliveryAddress?.streetAddress}</p>
+                                    <p>{row?.deliveryAddress?.city}</p>
                                 </TableCell>
-                                <TableCell align="right">{row?.customer?.fullName}</TableCell>
-                                <TableCell align="right"><p>{row?.deliveryAddress?.streetAddress}</p><p>{row?.deliveryAddress?.city}</p></TableCell>
-                                <TableCell align="right">{row?.mobile}</TableCell>
-                                <TableCell align="right">Rs. {row?.totalPrice}.00</TableCell>
-                                <TableCell align="right">
+                                <TableCell align="center">{row?.mobile}</TableCell>
+                                <TableCell align="center">Rs. {row?.totalPrice}.00</TableCell>
+                                <TableCell align="center">
                                     {row?.items?.map((item, index) => (
-                                        <p key={index}>{item?.quantity} × {item?.food?.name}</p>
+                                        <p key={index}>
+                                            <span style={{ color: 'red' }}>{item?.quantity}</span> × {item?.food?.name}
+                                        </p>
                                     ))}
                                 </TableCell>
-                                <TableCell align="right">
+                                <TableCell align="center">
                                     {row?.items?.map((orderItem, index) => (
-                                        <div key={index} className='flex justify-center items-center'>
+                                        <div
+                                            key={index}
+                                            className={isMobile ? 'flex flex-col items-center' : 'flex justify-center items-center'}
+                                        >
                                             {orderItem?.ingredients?.map((item, idx) => (
                                                 <Chip key={idx} className='m-1' label={item} />
                                             ))}
                                         </div>
                                     ))}
                                 </TableCell>
-                                <TableCell align="right">{row.orderStatus}</TableCell>
-                                <TableCell align='right'>
-                                    <div>
+                                <TableCell align="center">{row.orderStatus}
+                                <div>
                                         <Button
                                             id={`basic-button-${row.id}`}
                                             aria-controls={open ? `basic-menu-${row.id}` : undefined}
@@ -137,6 +143,9 @@ const OrderTable = ({ status }) => {
                                         </Menu>
                                     </div>
                                 </TableCell>
+                                {/* <TableCell align='center'>
+                                    
+                                </TableCell> */}
                             </TableRow>
                         ))}
                     </TableBody>
