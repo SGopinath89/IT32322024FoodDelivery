@@ -15,7 +15,7 @@ const UserProfile = () => {
   return (
     <div className='min-h-[80vh] flex flex-col justify-center items-center text-center '>
 
-      <div className='flex flex-col items-center justify-center border rounded-3xl px-40 py-20 '>
+      <div className='flex flex-col items-center justify-center rounded-3xl md:p-[100px] '>
         <AccountCircleIcon sx={{ fontSize: "9rem" }} />
         <h1 className='py-5 text-2xl font-semibold'>User Name - {auth?.user?.fullName}</h1>
         <p>Email -  {auth?.user?.email}</p>

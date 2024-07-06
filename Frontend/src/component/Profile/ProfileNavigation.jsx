@@ -9,7 +9,7 @@ import EventIcon from '@mui/icons-material/Event';
 import { Divider, Drawer, useMediaQuery } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import {logout} from '../State/Authentication/Action.jsx';
+import { logout } from '../State/Authentication/Action.jsx';
 
 const ProfileNavigation = ({ open, handleClose }) => {
 
@@ -25,20 +25,20 @@ const ProfileNavigation = ({ open, handleClose }) => {
 
     ];
 
-    const isSmallScreen = useMediaQuery('(max-width:768px)');
+    const isSmallScreen = useMediaQuery('(max-width:1024px)');
     const navigate = useNavigate();
-    const dispatch =useDispatch();
+    const dispatch = useDispatch();
 
-    const handleNavigate =  (item) => {
+    const handleNavigate = (item) => {
 
-        if(item.title==="Logout"){
+        if (item.title === "Logout") {
             dispatch(logout());
             navigate("/");
-        }else{
+        } else {
             navigate(`/profile/${item.title.toLowerCase()}`);
         }
 
-        
+        handleClose
     }
 
     return (
@@ -49,7 +49,7 @@ const ProfileNavigation = ({ open, handleClose }) => {
                 open={isSmallScreen ? (open) : (true)}
                 anchor='left'
                 onClose={handleClose}
-                sx={{ zIndex: -1 }}
+                sx={{ zIndex: 10 }}
                 variant={isSmallScreen ? ('temporary') : ('permanent')}
             >
 
@@ -58,7 +58,7 @@ const ProfileNavigation = ({ open, handleClose }) => {
                         menu.map((item, i) =>
                             <>
 
-                                <div onClick={() => handleNavigate(item)} className='px-5 flex items-center space-x-5 cursor-pointer'>
+                                <div onClick={() => handleNavigate(item)} className='flex items-center px-5 space-x-5 cursor-pointer'>
                                     {item.icon}
                                     <span>
                                         {item.title}

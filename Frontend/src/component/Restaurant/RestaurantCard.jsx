@@ -34,7 +34,7 @@ const RestaurantCard = ({ item }) => {
         else if (item.open) {  //set logic correct after test
 
             navigate(`/restaurant/${item?.address?.city}/${item.name}/${item.id}`);
-        }else{
+        } else {
             Swal.fire("Restaurant closed try later..");
         }
     }
@@ -54,8 +54,11 @@ const RestaurantCard = ({ item }) => {
             </div>
             <div className='justify-between w-full p-4 textPart lg:flex'>
                 <div className='space-y-1'>
-                    <p onClick={handleNavigateToRestaurant} className='text-lg font-semibold cursor-pointer'>{item.name || item.title}</p>
-                    <p className='text-sm text-gray-500'>{item.description}</p>
+                    <p onClick={handleNavigateToRestaurant} className='text-lg font-semibold cursor-pointer'> {item.name.length > 20 ? `${item.name.substring(0, 20)}...` : item.name}</p>
+                    <p className='text-sm text-gray-500'>
+                        {item.description.length > 60 ? `${item.description.substring(0, 60)}...` : item.description}
+                    </p>
+
                 </div>
                 <div>
                     <IconButton onClick={handleAddToFavorites}>
