@@ -7,8 +7,11 @@ import AddLocationIcon from '@mui/icons-material/AddLocation';
 import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
-import { createOrder } from '../State/Order/Action';
+import { createOrder, createPaymentLink } from '../State/Order/Action';
 import { useNavigate } from 'react-router-dom';
+import { addAddress } from '../State/Authentication/Action';
+import { data } from 'autoprefixer';
+import Swal from 'sweetalert2';
 
 export const style = {
     position: 'absolute',
@@ -26,7 +29,7 @@ export const style = {
 
 const Cart = () => {
 
-    const { cart, auth } = useSelector(store => store);
+    const { cart, auth,order } = useSelector(store => store);
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const handleClose = () => setOpen(false);
@@ -39,27 +42,66 @@ const Cart = () => {
 
     const handleOnSubmit = (values) => {
 
+        if (cart.cartItems.length == 0) {
+            handleClose();
+            Swal.fire({
+                icon: "question",
+                text: "Cart is empty",
+                timer: 2000,
+                timerProgressBar: true,
+                showConfirmButton: false
 
+            });
+            return;
+        } else {
+            handleClose();
+            Swal.fire({
+                title: "Conform order ?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes",
+                cancelButtonText: "No",
+                html: `
+                    <div style="display:block; font-size: 14px; color:black; border: 3px solid #ccc; padding: 10px;">
+                    <div><h1>Location Type : ${values?.location}</h1></div>
+                    <div><p>Address : ${values?.streetAddress}</p></div>
+                    <div><p>City : ${values?.city}</p></div>
+                    <div><p>Mobile : ${values?.mobile}</p></div>
+                    </div>
+                    <br/>
+                    <div style="display:block; font-size: 14px; color:black; border: 3px solid #ccc; padding: 10px;">
+                    <div><h1>Dilivery Free : 0.00</h1></div>
+                    <div><h1>Total Price : ${cart?.cart?.total}</h1></div>
+                  
+                    </div>
+    
+                `,
 
-        {
-            cart.cartItems?.map((item) => {
-                const data = {
-                    jwt: localStorage.getItem("jwt"),
-
-                    restaurantId: item.food?.restaurant.id,
-                    deliveryAddress: {
-                        fullName: auth.user?.fullName,
-                        streetAddress: values.streetAddress,
-                        city: values.city,
-                        mobile: values.mobile,
-                        locationType: values.location
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const data = {
+                        jwt: localStorage.getItem("jwt"),
+                        total:cart?.cart?.total,
+                        deliveryAddress: {
+                            fullName: auth.user?.fullName,
+                            streetAddress: values.streetAddress,
+                            city: values.city,
+                            mobile: values.mobile,
+                            locationType: values.location
+                        }
                     }
-                }
-                dispatch(createOrder(data));
+                    dispatch(createPaymentLink(data));
 
-            })
+
+                }
+            });
         }
-        handleClose();
+
+
+
+
     }
 
 
@@ -139,7 +181,7 @@ const Cart = () => {
                         <div className='flex flex-wrap justify-center gap-5'>
                             {
                                 auth?.address?.map(item =>
-                                    <AddressCard key={item} item={item} showbtn={true} />
+                                    <AddressCard key={item} item={item} showbtn={true} handleClose={handleClose} />
                                 )
                             }
                             <Card className='flex w-64 gap-5 p-5'>

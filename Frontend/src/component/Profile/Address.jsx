@@ -56,9 +56,6 @@ const Address = () => {
         locationType: values.location,
       },
     };
-
-
-
     dispatch(addAddress(data))
     handleClose();
   };
@@ -99,13 +96,14 @@ const Address = () => {
                   handleOnSubmit(values);
                   setSubmitting(false);
                   resetForm();
+                  handleClose();
                 }}
               >
                 {({ isSubmitting }) => (
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <h1 className='flex justify-center text-xl font-bold text-gray-400'>Add Address</h1>
+                        <h1 className='flex justify-center text-xl font-bold text-gray-400'>Add Addressssss</h1>
                       </Grid>
                       <Grid item xs={12}>
                         <Field

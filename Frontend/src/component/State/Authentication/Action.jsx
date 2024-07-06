@@ -8,21 +8,20 @@ export const registerUser = (reqData) => async (dispatch) => {
 
        
         const { data } = await axios.post(`${API_URL}/auth/signup`, reqData.userData);
-      
         if (data.jwt) localStorage.setItem("jwt", data.jwt);
         if (data.role === "ROLE_RESTAURANT_OWNER") {
             reqData.navigate("/admin/restaurants");
         } else {
             reqData.navigate("/");
         }
-
         Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Register Ok",
+            title: "Register successfully",
             showConfirmButton: false,
             timer: 1500
         });
+
         dispatch({ type: REGISTER_SUCCESS, payload: data.jwt });
         console.log("Register Success", data);
     } catch (error) {
@@ -34,13 +33,7 @@ export const registerUser = (reqData) => async (dispatch) => {
             timer: 1500
         });
         dispatch({ type: REGISTER_FAILURE, payload: error });
-        Swal.fire({
-            position: "top-end",
-            icon: "success",
-            title: "Register successfully",
-            showConfirmButton: false,
-            timer: 1500
-        });
+
         console.log("error", error);
     }
 
@@ -172,7 +165,7 @@ export const addAddress = (reqData) => async (dispatch) => {
             }
         });
         Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: "address added successfully",
             showConfirmButton: false,
