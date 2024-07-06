@@ -88,6 +88,11 @@ public class FoodServiceImp implements FoodService {
         return foodRepository.findByRestaurantId(restaurantId);
     }
 
+    @Override
+    public List<Food> getAllFoods() {
+        return foodRepository.findAll();
+    }
+
     private List<Food> filterByFoodCategory(List<Food> foods, String foodCategory) {
 
         return foods.stream().filter(food -> {
