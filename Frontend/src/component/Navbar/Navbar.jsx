@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
 import { IoMenu } from "react-icons/io5";
 
-const Navbar = ({handleDrawer}) => {
+const Navbar = ({ handleDrawer, isAddmin }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { auth, cart } = useSelector(store => store);
@@ -22,7 +22,7 @@ const Navbar = ({handleDrawer}) => {
         if (auth.user.role === "ROLE_CUSTOMER") {
             navigate("/profile");
         } else {
-            navigate("/admin/restaurants");
+            navigate("/admin/restaurants/details");
         }
     }
 
@@ -48,8 +48,11 @@ const Navbar = ({handleDrawer}) => {
                         isSmallScreen && <IconButton onClick={handleDrawer}><IoMenu /></IconButton>
                     }
                     <li className='list-none logo text-[28px]'>
-                        <Link to='/'><div>FAST   FOODS</div></Link>
-                    </li>
+                        {
+                            !isAddmin ? (<Link to='/'><div>FAST   FOODS</div></Link>) : (<Link to='/admin/restaurants'><div>FAST   FOODS</div></Link>)
+                        }
+
+                            </li>
                 </div>
                 <div className='flex items-center space-x-2 lg:space-x-10'>
                     <div>
@@ -70,13 +73,13 @@ const Navbar = ({handleDrawer}) => {
                             </IconButton>
                         )}
                     </div>
-                    <div>
+                    {!isAddmin && <div>
                         <IconButton onClick={handleCart}>
                             <Badge color='primary' badgeContent={cart?.cartItems?.length}>
                                 <ShoppingCartIcon sx={{ fontSize: "1.5rem" }} />
                             </Badge>
                         </IconButton>
-                    </div>
+                    </div>}
                 </div>
             </div >
 

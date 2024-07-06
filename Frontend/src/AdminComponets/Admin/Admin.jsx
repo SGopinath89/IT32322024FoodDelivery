@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import AdminSideBar from './AdminSideBar'
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import RestaurantDashboard from '../Dashboard/Dashboard'
@@ -13,37 +13,29 @@ import CreateMenuForm from '../Menu/CreateMenuForm'
 import { useDispatch, useSelector } from 'react-redux'
 import { getRestaurantCategory } from '../../component/State/Restaurant/Action'
 import { fetchRestaurantsOrder } from '../../component/State/RestaurantOrder/Action'
+import Navbar from '../../component/Navbar/Navbar'
 
 
 const Admin = () => {
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const jwt = localStorage.getItem("jwt");
   const { restaurant } = useSelector((store) => store);
   const restaurantId = restaurant.usersRestaurant?.id;
 
-  
+  const [openSidebar, setOpenSidebar] = useState(true);
 
-
-
-  // useEffect(() => {
-
-  //   dispatch(getRestaurantCategory({ jwt, restaurantId: restaurantId }));
-  //   dispatch(fetchRestaurantsOrder({ jwt, restaurantId: restaurantId }));
-
-  // }, []);
-
-  const handleClose = () => {
-
-  }
+  const handleDrawer = () => {
+      setOpenSidebar(!openSidebar);
+  };
 
   return (
     <div>
-
-      <div className='lg:flex justify-between'>
+      <Navbar isAddmin={true} handleDrawer={handleDrawer}  />
+      <div className='justify-between lg:flex'>
 
         <div>
-          <AdminSideBar handleClose={handleClose} />
+          <AdminSideBar open={openSidebar} />
         </div>
 
         <div className='lg:w-[80%]'>

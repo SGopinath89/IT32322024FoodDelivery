@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate } from 'react-router-dom'
 import CreateRestaurantForm from '../AdminComponets/CreateAdminRestuarnt/CreateRestaurantForm'
 import Admin from '../AdminComponets/Admin/Admin'
 import { useSelector } from 'react-redux'
+import Navbar from '../component/Navbar/Navbar'
 
 
 
@@ -14,6 +15,7 @@ const AdminRouter = () => {
 
   return (
     <div>
+      
       <Routes>
         <Route>
           <Route path='/*' element={restaurant?.usersRestaurant ? <Admin /> : (<CreateRestaurantForm /> )} />

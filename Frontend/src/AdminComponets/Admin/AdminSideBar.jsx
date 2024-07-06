@@ -23,8 +23,8 @@ const menu = [
     { title: "Logout", icon: <LogoutIcon />, path: '/' }
 ]
 
-const AdminSideBar = ({ handleClose }) => {
-    const isSmallScreen = useMediaQuery("(max-width:768px)");
+const AdminSideBar = ({ open}) => {
+    const isSmallScreen = useMediaQuery("(max-width:1024px)");
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -44,10 +44,10 @@ const AdminSideBar = ({ handleClose }) => {
     return (
         <Drawer
             variant={isSmallScreen ? "temporary" : "permanent"}
-            onClose={handleClose}
-            open={true}
+           
+            open={open}
             anchor='left'
-            sx={{ zIndex: 1 }}
+            sx={{ zIndex: 10 }}
         >
             <div className='w-[40vw] lg:w-[20vw] h-screen flex flex-col 
             justify-center text-xl space-y-[1.65rem]'>
@@ -55,7 +55,7 @@ const AdminSideBar = ({ handleClose }) => {
                 {
                     menu.map((item, index) =>
                         <>
-                            <div onClick={() => handleNavigate(item)} className='px-5 flex items-center gap-5 cursor-pointer'>
+                            <div onClick={() => handleNavigate(item)} className='flex items-center gap-5 px-5 cursor-pointer'>
                                 {item.icon}
                                 <span>{item.title}</span>
                             </div>
