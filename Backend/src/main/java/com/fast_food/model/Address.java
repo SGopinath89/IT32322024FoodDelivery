@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Objects;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -28,4 +30,20 @@ public class Address {
 
     private String mobile;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return Objects.equals(fullName, address.fullName) &&
+                Objects.equals(streetAddress, address.streetAddress) &&
+                Objects.equals(city, address.city) &&
+                Objects.equals(locationType, address.locationType) &&
+                Objects.equals(mobile, address.mobile);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fullName, streetAddress, city, locationType, mobile);
+    }
 }

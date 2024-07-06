@@ -11,4 +11,10 @@ public class OrderRequest {
     private Address deliveryAddress;
 
     private String mobile;
+
+    private  String sessionId;
+
+    private long total;
+
+
 }

@@ -1,9 +1,6 @@
 package com.fast_food.service;
 
-import com.fast_food.model.Cart;
-import com.fast_food.model.CartItem;
-import com.fast_food.model.Food;
-import com.fast_food.model.User;
+import com.fast_food.model.*;
 import com.fast_food.repository.CartItemRepository;
 import com.fast_food.repository.CartRepository;
 import com.fast_food.request.AddCartItemRequest;
@@ -34,11 +31,12 @@ public class CartServiceImp implements CartService{
         Food food = foodService.findFoodById(req.getFoodId());
 
         Cart cart = cartRepository.findByCustomerId(user.getId());
-
+;
         for (CartItem cartItem : cart.getItem()){
             if(cartItem.getFood().equals(food)){
-                int newQty= cartItem.getQuantity()+req.getQuantity();
-                    return updateCartItemQuantity(cartItem.getId(),newQty);
+//                int newQty= cartItem.getQuantity()+req.getQuantity();
+//                    return updateCartItemQuantity(cartItem.getId(),newQty);
+                return null;
             }
         }
 
@@ -96,6 +94,19 @@ public class CartServiceImp implements CartService{
 
         for (CartItem cartItem : cart.getItem()){
             tot+=cartItem.getFood().getPrice()*cartItem.getQuantity();
+        }
+        return tot;
+    }
+
+    @Override
+    public Long calculateCartTotalsByRestaurantID(Cart cart, Restaurant restaurant) throws Exception {
+        long tot=0L;
+
+        for (CartItem cartItem : cart.getItem()){
+            if(cartItem.getFood().getRestaurant()==restaurant){
+                tot+=cartItem.getFood().getPrice()*cartItem.getQuantity();
+            }
+
         }
         return tot;
     }
