@@ -18,17 +18,17 @@
 }
 @media (max-width: 768px) {
     .banner {
-        background-size: contain; /* Adjust to contain the image within the banner */
-        height: 50vh; /* Adjust height for better fit on mobile screens */
+        background-size: contain; 
+        height: 50vh; 
     }
 }
 
-/* Media query for very small devices */
+
 @media (max-width: 480px) {
     .banner {
-        background-size: contain; /* Adjust to contain the image within the banner */
-        background-position: center; /* Center the background image */
-        height: 40vh; /* Adjust height for better fit on very small screens */
+        background-size: contain; 
+        background-position: center; 
+        height: 40vh; 
     }
 }
 
