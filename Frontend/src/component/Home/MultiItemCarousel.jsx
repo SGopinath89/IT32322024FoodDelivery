@@ -20,7 +20,23 @@ const MultiItemCarousel = () => {
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 1500,
-        arrows: false
+        arrows: false,
+        responsive: [
+            {
+              breakpoint: 1024, 
+              settings: {
+                slidesToShow: 5,
+                slidesToScroll: 1,
+              }
+            },
+            {
+              breakpoint: 600, 
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+              }
+            }
+          ]
     };
 
     return (

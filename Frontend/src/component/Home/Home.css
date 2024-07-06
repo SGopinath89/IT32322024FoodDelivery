@@ -16,6 +16,22 @@
     font-style: normal;
 
 }
+@media (max-width: 768px) {
+    .banner {
+        background-size: contain; /* Adjust to contain the image within the banner */
+        height: 50vh; /* Adjust height for better fit on mobile screens */
+    }
+}
+
+/* Media query for very small devices */
+@media (max-width: 480px) {
+    .banner {
+        background-size: contain; /* Adjust to contain the image within the banner */
+        background-position: center; /* Center the background image */
+        height: 40vh; /* Adjust height for better fit on very small screens */
+    }
+}
+
 
 .logo{
     
