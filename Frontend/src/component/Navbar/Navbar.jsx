@@ -1,4 +1,4 @@
-import { Alert, Avatar, Badge, IconButton } from '@mui/material';
+import { Alert, Avatar, Badge, IconButton, useMediaQuery } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import React, { useEffect, useState } from 'react';
@@ -8,11 +8,13 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Swal from 'sweetalert2';
+import { IoMenu } from "react-icons/io5";
 
-const Navbar = () => {
+const Navbar = ({handleDrawer}) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { auth, cart } = useSelector(store => store);
+    const isSmallScreen = useMediaQuery('(max-width:1024px)');
 
 
 
@@ -33,7 +35,7 @@ const Navbar = () => {
                 title: "Waring..!!",
                 text: "You need to login first",
                 footer: '<a href="/account/login">Click hear to login</a>'
-                
+
             });
         }
     }
@@ -42,6 +44,9 @@ const Navbar = () => {
         <>
             <div className='px-5 sticky top-0 z-50 py-[0.8rem] bg-black lg:px-20 flex justify-between'>
                 <div className='flex items-center space-x-4 cursor-pointer lg:mr-10'>
+                    {
+                        isSmallScreen && <IconButton onClick={handleDrawer}><IoMenu /></IconButton>
+                    }
                     <li className='list-none logo text-[28px]'>
                         <Link to='/'><div>FAST   FOODS</div></Link>
                     </li>
@@ -74,7 +79,7 @@ const Navbar = () => {
                     </div>
                 </div>
             </div >
-           
+
         </>
     )
 }
