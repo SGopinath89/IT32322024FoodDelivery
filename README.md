@@ -10,19 +10,15 @@ This is a Fast-Food app that allows users to browse, order, and watch their favo
 
 ## Hosting and Database
 
-- **Frontend:** Hosted on [Vercel](https://e-commerce-project-zeta-five.vercel.app/).
+- **Frontend:** Hosted on [Vercel](https://e-commerce-project-zeta-five.vercel.app/). click hear
 - **Backend:** Hosted on Railway.
 - **Database:** MySQL hosted on Railway.
 
-## How to Use the Watch Feature
-
-You can now click to watch a fast-food item. This feature allows you to get updates and notifications about the item.
 
 ### Steps to Watch a Fast-Food Item
 
 1. Browse the list of fast-food items.
-2. Click the "Watch" button next to the item you are interested in.
-3. You will start receiving updates and notifications about this item.
+
 
 ## Tech Stack
 
