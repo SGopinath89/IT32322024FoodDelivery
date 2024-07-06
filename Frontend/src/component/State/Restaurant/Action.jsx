@@ -1,5 +1,5 @@
 import { api } from '../../config/api';
-import { CREATE_CATEGORY_FAILURE, CREATE_CATEGORY_REQUEST, CREATE_CATEGORY_SUCCESS, CREATE_EVENTS_FAILURE, CREATE_EVENTS_REQUEST, CREATE_EVENTS_SUCCESS, CREATE_RESTAURANT_FAILURE, CREATE_RESTAURANT_REQUEST, CREATE_RESTAURANT_SUCCESS, DELETE_EVENTS_REQUEST, DELETE_EVENTS_SUCCESS, DELETE_RESTAURANT_FAILURE, DELETE_RESTAURANT_REQUEST, DELETE_RESTAURANT_SUCCESS, GET_ALL_EVENTS_FAILURE, GET_ALL_EVENTS_REQUEST, GET_ALL_EVENTS_SUCCESS, GET_ALL_RESTAURANTS_FAILURE, GET_ALL_RESTAURANTS_REQUEST, GET_ALL_RESTAURANTS_SUCCESS, GET_RESTAURANTS_EVENTS_FAILURE, GET_RESTAURANTS_EVENTS_REQUEST, GET_RESTAURANTS_EVENTS_SUCCESS, GET_RESTAURANT_BY_ID_FAILURE, GET_RESTAURANT_BY_ID_REQUEST, GET_RESTAURANT_BY_ID_SUCCESS, GET_RESTAURANT_BY_USER_ID_FAILURE, GET_RESTAURANT_BY_USER_ID_REQUEST, GET_RESTAURANT_BY_USER_ID_SUCCESS, GET_RESTAURANT_CATEGORY_FAILURE, GET_RESTAURANT_CATEGORY_REQUEST, GET_RESTAURANT_CATEGORY_SUCCESS, GET_RESTAURANT_EVENTS_REQUEST_BY_ID, GET_RESTAURANT_EVENTS_SUCCESS_BY_ID, UPDATE_RESTAURANT_FAILURE, UPDATE_RESTAURANT_REQUEST, UPDATE_RESTAURANT_STATUS_FAILURE, UPDATE_RESTAURANT_STATUS_REQUEST, UPDATE_RESTAURANT_STATUS_SUCCESS, UPDATE_RESTAURANT_SUCCESS } from './ActionTypes';
+import { CREATE_CATEGORY_FAILURE, CREATE_CATEGORY_REQUEST, CREATE_CATEGORY_SUCCESS, CREATE_EVENTS_FAILURE, CREATE_EVENTS_REQUEST, CREATE_EVENTS_SUCCESS, CREATE_RESTAURANT_FAILURE, CREATE_RESTAURANT_REQUEST, CREATE_RESTAURANT_SUCCESS, DELETE_EVENTS_REQUEST, DELETE_EVENTS_SUCCESS, DELETE_RESTAURANT_FAILURE, DELETE_RESTAURANT_REQUEST, DELETE_RESTAURANT_SUCCESS, GET_ALL_EVENTS_FAILURE, GET_ALL_EVENTS_REQUEST, GET_ALL_EVENTS_SUCCESS, GET_ALL_FOODS_FAILURE, GET_ALL_FOODS_REQUEST, GET_ALL_FOODS_SUCCESS, GET_ALL_RESTAURANTS_FAILURE, GET_ALL_RESTAURANTS_REQUEST, GET_ALL_RESTAURANTS_SUCCESS, GET_RESTAURANTS_EVENTS_FAILURE, GET_RESTAURANTS_EVENTS_REQUEST, GET_RESTAURANTS_EVENTS_SUCCESS, GET_RESTAURANT_BY_ID_FAILURE, GET_RESTAURANT_BY_ID_REQUEST, GET_RESTAURANT_BY_ID_SUCCESS, GET_RESTAURANT_BY_USER_ID_FAILURE, GET_RESTAURANT_BY_USER_ID_REQUEST, GET_RESTAURANT_BY_USER_ID_SUCCESS, GET_RESTAURANT_CATEGORY_FAILURE, GET_RESTAURANT_CATEGORY_REQUEST, GET_RESTAURANT_CATEGORY_SUCCESS, GET_RESTAURANT_EVENTS_REQUEST_BY_ID, GET_RESTAURANT_EVENTS_SUCCESS_BY_ID, UPDATE_RESTAURANT_FAILURE, UPDATE_RESTAURANT_REQUEST, UPDATE_RESTAURANT_STATUS_FAILURE, UPDATE_RESTAURANT_STATUS_REQUEST, UPDATE_RESTAURANT_STATUS_SUCCESS, UPDATE_RESTAURANT_SUCCESS } from './ActionTypes';
 import Swal from 'sweetalert2';
 
 export const getAllRestaurantAction = () => {
@@ -18,6 +18,30 @@ export const getAllRestaurantAction = () => {
 
         } catch (error) {
             dispatch({ type: GET_ALL_RESTAURANTS_FAILURE, payload: error });
+            console.log("Error ", error);
+        }
+
+    }
+
+}
+
+export const getAllFoods = () => {
+
+    return async (dispatch) => {
+
+        dispatch({ type: GET_ALL_FOODS_REQUEST });
+        try {
+
+            const { data } = await api.get("/api/food/all",
+                
+               
+            );
+
+            dispatch({ type: GET_ALL_FOODS_SUCCESS, payload: data });
+            console.log("All Foods ", data);
+
+        } catch (error) {
+            dispatch({ type: GET_ALL_FOODS_FAILURE, payload: error });
             console.log("Error ", error);
         }
 
@@ -155,7 +179,7 @@ export const deleteRestaurant = ({ restaurantId, jwt }) => {
                 }
             );
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "delete restaurnt successfully",
                 showConfirmButton: false,
@@ -221,7 +245,7 @@ console.log(data)
                 }
             );
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "create event successfully",
                 showConfirmButton: false,
@@ -311,7 +335,7 @@ export const deleteEvent = ({ eventId, jwt }) => {
                 }
             );
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "delete event successfully",
                 showConfirmButton: false,
@@ -372,7 +396,7 @@ export const creatCategoryAction = ({ reqData, jwt }) => {
                 }
             );
             Swal.fire({
-                position: "top-end",
+                position: "center",
                 icon: "success",
                 title: "create category successfully",
                 showConfirmButton: false,

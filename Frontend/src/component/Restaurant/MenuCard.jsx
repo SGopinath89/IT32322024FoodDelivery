@@ -2,11 +2,10 @@ import { Accordion, Button, Checkbox, FormControlLabel, FormGroup } from '@mui/m
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { categorizeIngrdients } from '../../utils/categrizeingredinets';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItemToCart, getAllCartItems } from '../State/Cart/Action';
-import { useNavigate } from 'react-router-dom';
 
 
 const MenuCard = ({ item }) => {
@@ -14,10 +13,6 @@ const MenuCard = ({ item }) => {
     const [selectedIngrdients, setSelectedIngredinets] = useState([]);
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt");
-    
-    const naviagte=useNavigate();
-    
-
 
     const handleAddItemToCart = (e) => {
 
@@ -30,7 +25,7 @@ const MenuCard = ({ item }) => {
                 ingredients: selectedIngrdients
             }
         };
-        
+
         dispatch(addItemToCart(reqData));
 
         //naviagte("/cart");

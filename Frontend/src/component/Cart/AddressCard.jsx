@@ -10,7 +10,7 @@ const AddressCard = ({ item, handleClose }) => {
 
     const { cart, auth } = useSelector(store => store);
     const dispatch = useDispatch();
-    // const dispatch = useDispatch();
+    const showSelectButton = !location.pathname.includes('/profile/address')
     const createOrderUsingSelectedAddress = () => {
 
         if (cart.cartItems.length == 0) {
@@ -53,7 +53,7 @@ const AddressCard = ({ item, handleClose }) => {
                 if (result.isConfirmed) {
                     const data = {
                         jwt: localStorage.getItem("jwt"),
-                        total:cart?.cart?.total,
+                        total: cart?.cart?.total,
                         deliveryAddress: {
                             fullName: auth.user?.fullName,
                             streetAddress: item.streetAddress,
@@ -96,7 +96,7 @@ const AddressCard = ({ item, handleClose }) => {
                     <p>{item?.mobile}</p>
                 </div>
                 <div>
-                    <Button variant='outlined' onClick={createOrderUsingSelectedAddress} fullWidth >Select</Button>
+                    {showSelectButton && <Button variant='outlined' onClick={createOrderUsingSelectedAddress} fullWidth >Select</Button>}
                 </div>
 
             </div>

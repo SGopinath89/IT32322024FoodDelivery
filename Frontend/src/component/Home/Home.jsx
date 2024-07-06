@@ -4,7 +4,7 @@ import MultiItemCarousel from './MultiItemCarousel';
 import RestaurantCard from '../Restaurant/RestaurantCard';
 import { Divider } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllEvents, getAllRestaurantAction } from '../State/Restaurant/Action';
+import { getAllEvents, getAllFoods, getAllRestaurantAction } from '../State/Restaurant/Action';
 import { useEffect } from 'react';
 import EventCard from '../Profile/EventCard';
 
@@ -13,16 +13,6 @@ const Home = () => {
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt");
     const { restaurant } = useSelector(store => store);
-
-
-    useEffect(() => {
-        dispatch(getAllRestaurantAction());
-        //dispatch(getAllEvents(jwt))
-
-    }, [])
-
-
-
 
     return (
         <div className='pb-10'>
@@ -43,7 +33,7 @@ const Home = () => {
 
             <section className='p-10 lg:py-10 lg:px-20'>
                 <p className='py-3 pb-5 text-2xl font-semibold text-gray-400'>Top Meels</p>
-                <MultiItemCarousel />
+                <MultiItemCarousel foods={restaurant?.foods}/>
             </section>
             <Divider />
 

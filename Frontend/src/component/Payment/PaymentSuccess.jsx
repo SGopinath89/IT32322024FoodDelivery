@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button, CircularProgress } from '@mui/material';
 import { createOrder as createOrderAction } from '../State/Order/Action';
 import { clearCartAction } from '../State/Cart/Action';
-import successImage from '../../assets/payment_success.png';
+import Lottie from 'lottie-react';
+import paymentAnimation from '../../assets/payment.json';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
@@ -19,6 +20,15 @@ const PaymentSuccess = () => {
 
     const handleCreateOrder = async () => {
         setIsCreatingOrder(true);
+
+        const defaultOptions = {
+            loop: true,
+            autoplay: true,
+            animationData: paymentAnimation,
+            rendererSettings: {
+                preserveAspectRatio: 'xMidYMid slice'
+            }
+        };
 
         try {
             // Track unique restaurant IDs
@@ -80,17 +90,30 @@ const PaymentSuccess = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen">
-            <div className="border rounded-lg shadow-sm p-auto b-white mx-auto px-[100px] py-[50px]">
-                <img src={successImage} alt="Success" className="w-24 mx-auto mb-4" />
-                <h2 className="mb-2 text-2xl font-bold text-green-600">Payment Successful!</h2>
+        <div className="flex flex-col items-center justify-center min-h-screen">
 
-                {!localStorage.getItem("orderCreated") && (
-                    <Button onClick={handleCreateOrder}>
-                        {isCreatingOrder ? <CircularProgress size={24} /> : 'Click here to place order'}
-                    </Button>
-                )}
-            </div>
+
+            <Lottie animationData={paymentAnimation}
+
+                loop={false}  // Ensure animation does not loop
+                autoplay={true}  // Autoplay animation
+                style={{ width: '60%', height: 'auto' }}
+            />
+
+            {!localStorage.getItem("orderCreated") && (
+                <Button
+
+                    variant="contained"
+                    color="primary"
+                   
+                    onClick={handleCreateOrder}
+                    disabled={isCreatingOrder}
+                    
+                >
+                    {isCreatingOrder ? <CircularProgress size={24} color="inherit" /> : 'Place Order'}
+                </Button>
+            )}
+
         </div>
     );
 };

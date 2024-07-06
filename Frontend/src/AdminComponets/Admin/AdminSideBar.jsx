@@ -42,9 +42,9 @@ const AdminSideBar = ({ open}) => {
     }
 
     return (
+        
         <Drawer
             variant={isSmallScreen ? "temporary" : "permanent"}
-           
             open={open}
             anchor='left'
             sx={{ zIndex: 10 }}

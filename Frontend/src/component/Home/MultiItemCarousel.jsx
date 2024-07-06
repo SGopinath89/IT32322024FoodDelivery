@@ -1,13 +1,10 @@
 import React from 'react'
-import { topMeals } from '../../assets/Data/TopMeels';
 import CarouselItem from './CarouselItem';
-
-
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from 'react-slick';
 
-const MultiItemCarousel = () => {
+const MultiItemCarousel = ({foods}) => {
 
 
 
@@ -40,11 +37,11 @@ const MultiItemCarousel = () => {
     };
 
     return (
-        <div>
+        <div className='border'>
 
             <Slider {...settings}>
                 {
-                    topMeals.map((item) => <CarouselItem key={item} image={item.image} title={item.title} />)
+                    foods?.map((item) => <CarouselItem key={item} image={item.images[0]} title={item?.name} price={item?.price} />)
                 }
             </Slider>
 

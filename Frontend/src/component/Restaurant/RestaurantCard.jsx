@@ -54,7 +54,7 @@ const RestaurantCard = ({ item }) => {
             </div>
             <div className='justify-between w-full p-4 textPart lg:flex'>
                 <div className='space-y-1'>
-                    <p onClick={handleNavigateToRestaurant} className='text-lg font-semibold cursor-pointer'> {item.name.length > 20 ? `${item.name.substring(0, 20)}...` : item.name}</p>
+                    <p onClick={handleNavigateToRestaurant} className='text-lg font-semibold cursor-pointer'> {item.name.length > 19 ? `${item.name.substring(0, 19)}...` : item.name}</p>
                     <p className='text-sm text-gray-500'>
                         {item.description.length > 60 ? `${item.description.substring(0, 60)}...` : item.description}
                     </p>

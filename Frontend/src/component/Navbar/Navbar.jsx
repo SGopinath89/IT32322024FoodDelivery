@@ -15,7 +15,8 @@ const Navbar = ({ handleDrawer, isAddmin }) => {
     const dispatch = useDispatch();
     const { auth, cart } = useSelector(store => store);
     const isSmallScreen = useMediaQuery('(max-width:1024px)');
-
+    const prodileMenuShow= location.pathname.includes('/profile') ||location.pathname.includes('/admin/restaurants')
+  
 
 
     const handleAvatarClick = () => {
@@ -45,11 +46,11 @@ const Navbar = ({ handleDrawer, isAddmin }) => {
             <div className='px-5 sticky top-0 z-50 py-[0.8rem] bg-black lg:px-20 flex justify-between'>
                 <div className='flex items-center space-x-4 cursor-pointer lg:mr-10'>
                     {
-                        isSmallScreen && <IconButton onClick={handleDrawer}><IoMenu /></IconButton>
+                        isSmallScreen && prodileMenuShow&& <IconButton onClick={handleDrawer}><IoMenu /></IconButton>
                     }
                     <li className='list-none logo text-[28px]'>
                         {
-                            !isAddmin ? (<Link to='/'><div>FAST   FOODS</div></Link>) : (<Link to='/admin/restaurants'><div>FAST   FOODS</div></Link>)
+                            !isAddmin ? (<Link to='/'><div>FAST  FOODS</div></Link>) : (<Link to='/admin/restaurants'>{isSmallScreen?(<div>FAST  FOODS</div>):(<div className='pl-[400px]'>FAST FOODS ADMIN</div>)}</Link>)
                         }
 
                             </li>

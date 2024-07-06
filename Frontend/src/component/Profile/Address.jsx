@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import AddressCard from '../Cart/AddressCard';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
 import { Box, Button, Card, Grid, Modal, TextField } from '@mui/material';
@@ -6,7 +6,6 @@ import { Formik, Field, ErrorMessage, Form } from 'formik';
 import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { addAddress } from '../State/Authentication/Action';
-
 
 export const style = {
   position: 'absolute',
@@ -24,12 +23,10 @@ const Address = () => {
   const { auth } = useSelector(store => store);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  
 
   const handleClose = () => setOpen(false);
   const handleOpenAddressModal = () => setOpen(true);
-
-
-
 
   const initialValues = {
     location: '',
@@ -41,7 +38,11 @@ const Address = () => {
   const validationSchema = Yup.object().shape({
     location: Yup.string().required('Location Type is required'),
     streetAddress: Yup.string().required('Street Address is required'),
-    mobile: Yup.string().required('Mobile is required'),
+    mobile: Yup.string()
+      .required('Mobile is required')
+      .matches(/^[0-9]+$/, 'Mobile must be a number')
+      .min(10, 'Mobile must be at least 10 digits')
+      .max(15, 'Mobile must be less than 15 digits'),
     city: Yup.string().required('City is required'),
   });
 
@@ -56,20 +57,18 @@ const Address = () => {
         locationType: values.location,
       },
     };
-    dispatch(addAddress(data))
+    dispatch(addAddress(data));
     handleClose();
   };
 
-
-
   return (
     <div>
-      <section className='flex justify-center px-5 pb-10 lg:pb-0 '>
+      <section className='flex justify-center px-5 pb-10 lg:pb-0'>
         <div>
           <h1 className='py-10 text-2xl font-semibold text-center'>Address</h1>
           <div className='flex flex-wrap justify-center gap-5 pb-20'>
             {auth?.address?.map((item, index) => (
-              <AddressCard key={index} item={item}  />
+              <AddressCard key={index} item={item} />
             ))}
             <Card className='flex w-64 gap-5 p-5'>
               <AddLocationIcon />
@@ -96,14 +95,13 @@ const Address = () => {
                   handleOnSubmit(values);
                   setSubmitting(false);
                   resetForm();
-                  handleClose();
                 }}
               >
                 {({ isSubmitting }) => (
                   <Form>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <h1 className='flex justify-center text-xl font-bold text-gray-400'>Add Addressssss</h1>
+                        <h1 className='flex justify-center text-xl font-bold text-gray-400'>Add Address</h1>
                       </Grid>
                       <Grid item xs={12}>
                         <Field

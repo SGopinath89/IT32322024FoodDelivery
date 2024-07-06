@@ -116,13 +116,15 @@ const Cart = () => {
     }
 
     const validationSchema = Yup.object().shape({
-
-        streetAddress: Yup.string().required("Street Address is required"),
-        mobile: Yup.string().required("Mobile is required"),
         location: Yup.string().required('Location Type is required'),
-        city: Yup.string().required("City is required")
-
-    })
+        streetAddress: Yup.string().required('Street Address is required'),
+        mobile: Yup.string()
+          .required('Mobile is required')
+          .matches(/^[0-9]+$/, 'Mobile must be a number')
+          .min(10, 'Mobile must be at least 10 digits')
+          .max(15, 'Mobile must be less than 15 digits'),
+        city: Yup.string().required('City is required'),
+      });
 
     return (
         <>
@@ -234,7 +236,7 @@ const Cart = () => {
                                             name="streetAddress"
                                             label="Address"
                                             fullWidth variant="outlined"
-                                            error={!ErrorMessage("streetAddress")}
+                                            helperText={<ErrorMessage name="streetAddress" />}
 
 
                                         >
@@ -247,8 +249,7 @@ const Cart = () => {
                                             name="mobile"
                                             label="Mobile"
                                             fullWidth variant="outlined"
-                                            error={!ErrorMessage("mobile")}
-
+                                            helperText={<ErrorMessage name="mobile" />}
 
 
                                         >
@@ -261,7 +262,7 @@ const Cart = () => {
                                             name="city"
                                             label="City"
                                             fullWidth variant="outlined"
-                                            error={!ErrorMessage("city")}
+                                            helperText={<ErrorMessage name="city" />}
 
 
 
