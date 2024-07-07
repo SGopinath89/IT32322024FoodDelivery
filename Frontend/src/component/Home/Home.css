@@ -19,6 +19,7 @@
    
 }
 
+
 .banner-content {
     text-align: center;
     animation: fadeIn 3s ease-out forwards, slideIn 2s ease-out forwards;
@@ -33,6 +34,8 @@
     }
 }
 
+
+
 @keyframes slideIn {
     0% {
         transform: translateY(-50px);
@@ -46,8 +49,10 @@
     .banner {
         width:'100%';
         background-size: contain;
-        
+
         height: 40vh;
+
+
     }
 }
 
@@ -56,6 +61,7 @@
         width:'100%';
         background-size: contain;
         
+
         height: 35vh;
     }
 }
@@ -63,9 +69,9 @@
 @media (max-width: 300px) {
     .search-container {
         flex-direction: column;
+
     }
 }
-
 
 .logo{
     
