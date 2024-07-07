@@ -9,13 +9,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createMenuItem } from '../../component/State/Menu/Action';
 import { getIngredientsOfRestaurant } from '../../component/State/Ingredients/Action';
 import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 
 const initialValues = {
-    name: "Cheese Pizza",
-    description: "Welcome to My Restaurant! We serve delicious food with a smile.",
+    name: "",
+    description: "",    
     price:null,
     category: null,
-    restaurantId: "123456",
+    restaurantId: "",
     vegetarian: true,
     seasonal: false,
     ingredients: [],
@@ -25,7 +26,7 @@ const initialValues = {
 const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
     description: Yup.string().required("Description is required"),
-    price: Yup.string().required("Price is required"),
+    price: Yup.number().required("Price is required"),
     category: Yup.object().required("Category is required"),
     ingredients: Yup.array().required("Ingredients are required"),
 });
@@ -34,13 +35,25 @@ const CreateMenuForm = () => {
     const dispatch = useDispatch();
     const jwt = localStorage.getItem("jwt");
     const { restaurant, ingredient } = useSelector(store => store);
+    console.log(restaurant)
     const navigate=useNavigate();
     useEffect(() => {
+        
+        
         if (restaurant?.usersRestaurant?.id) {
             dispatch(getIngredientsOfRestaurant({
                 id: restaurant.usersRestaurant.id,
                 jwt
             }));
+        }
+        
+        if(restaurant?.categories?.length<0){
+            Swal.fire({
+                title: "Resturant category empty",
+               
+                icon: "question"
+              });
+            navigate('/admin/restaurants/category');
         }
     }, [dispatch, jwt, restaurant?.usersRestaurant?.id]);
 
