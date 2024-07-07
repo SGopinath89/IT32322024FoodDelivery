@@ -53,7 +53,7 @@ const CreateMenuForm = () => {
             values.restaurantId = restaurant.usersRestaurant.id;
             dispatch(createMenuItem({ menu: values, jwt }));
 
-        //navigate('/admin/restaurants/menu');
+        navigate('/admin/restaurants/menu');
         }
     });
 

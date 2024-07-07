@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import RestaurantCard from '../Restaurant/RestaurantCard'
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllRestaurantAction } from '../State/Restaurant/Action';
+import { getUser } from '../State/Authentication/Action';
 
 const Favorites = () => {
   const dispatch = useDispatch();

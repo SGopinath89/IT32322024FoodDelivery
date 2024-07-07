@@ -15,7 +15,7 @@ export const registerUser = (reqData) => async (dispatch) => {
             reqData.navigate("/");
         }
         Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: "Register successfully",
             showConfirmButton: false,
@@ -25,13 +25,7 @@ export const registerUser = (reqData) => async (dispatch) => {
         dispatch({ type: REGISTER_SUCCESS, payload: data.jwt });
         console.log("Register Success", data);
     } catch (error) {
-        Swal.fire({
-            position: "top-end",
-            icon: "error",
-            title: "all feilds must fill",
-            showConfirmButton: false,
-            timer: 1500
-        });
+    
         dispatch({ type: REGISTER_FAILURE, payload: error });
 
         console.log("error", error);
@@ -53,7 +47,7 @@ export const loginUser = (reqData) => async (dispatch) => {
 
         dispatch({ type: LOGIN_SUCCESS, payload: data });
         Swal.fire({
-            position: "top-end",
+            position: "center",
             icon: "success",
             title: "Login successfully",
             showConfirmButton: false,
@@ -107,14 +101,7 @@ export const addToFavorite = ({ restaurantId, jwt }) => async (dispatch) => {
                 Authorization: `Bearer ${jwt}`
             }
         });
-        Swal.fire({
-            title: "successfully done",
-            timer: 1500,
-            icon: "success",
-            showConfirmButton: false
-
-        });
-
+   
         dispatch({ type: ADD_TO_FAVORITE_SUCCESS, payload: data });
         console.log("Add Favorites To", data);
     } catch (error) {

@@ -1,5 +1,5 @@
 import { Box, Button, Card, Divider, Grid, Modal, TextField } from '@mui/material'
-import { React, useState } from 'react'
+import { React, useEffect, useState } from 'react'
 import CartItem from './CartItem'
 import AddressCard from './AddressCard';
 import AddLocationIcon from '@mui/icons-material/AddLocation';
@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrder, createPaymentLink } from '../State/Order/Action';
 import { useNavigate } from 'react-router-dom';
-import { addAddress } from '../State/Authentication/Action';
+import { addAddress, getUser } from '../State/Authentication/Action';
 import { data } from 'autoprefixer';
 import Swal from 'sweetalert2';
 
@@ -26,19 +26,35 @@ export const style = {
 };
 
 
-
 const Cart = () => {
 
-    const { cart, auth,order } = useSelector(store => store);
+    const { cart, auth, } = useSelector(store => store);
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
     const handleClose = () => setOpen(false);
+    const jwt = localStorage.getItem("jwt");
 
     const handleOpenAddresModal = () => {
         setOpen(true);
     }
 
     const dispatch = useDispatch();
+
+    useEffect(() => {
+
+        if (jwt) {
+
+            dispatch(getUser(jwt));
+
+        }
+
+    }, [jwt, dispatch]);
+
+    const handleAddItemsNavigation = () => {
+        alert(auth?.user?.favorites.length)
+        auth?.user?.favorites.length > 0 ? navigate('/profile/favorites') : (navigate('/'))
+    }
+
 
     const handleOnSubmit = (values) => {
 
@@ -83,7 +99,7 @@ const Cart = () => {
                 if (result.isConfirmed) {
                     const data = {
                         jwt: localStorage.getItem("jwt"),
-                        total:cart?.cart?.total,
+                        total: cart?.cart?.total,
                         deliveryAddress: {
                             fullName: auth.user?.fullName,
                             streetAddress: values.streetAddress,
@@ -119,12 +135,12 @@ const Cart = () => {
         location: Yup.string().required('Location Type is required'),
         streetAddress: Yup.string().required('Street Address is required'),
         mobile: Yup.string()
-          .required('Mobile is required')
-          .matches(/^[0-9]+$/, 'Mobile must be a number')
-          .min(10, 'Mobile must be at least 10 digits')
-          .max(15, 'Mobile must be less than 15 digits'),
+            .required('Mobile is required')
+            .matches(/^[0-9]+$/, 'Mobile must be a number')
+            .min(10, 'Mobile must be at least 10 digits')
+            .max(15, 'Mobile must be less than 15 digits'),
         city: Yup.string().required('City is required'),
-      });
+    });
 
     return (
         <>
@@ -140,7 +156,7 @@ const Cart = () => {
                         )) : (
                             <div className='px-20'>
                                 {/* <center className='p-5 text-gray-500'>Cart Empty</center> */}
-                                <div className='flex justify-center'><Button onClick={() => navigate("../profile/favorites")} fullWidth variant='outlined'>Add Items</Button></div>
+                                <div className='flex justify-center'><Button onClick={handleAddItemsNavigation} fullWidth variant='outlined'>Add Items</Button></div>
                             </div>
                         )
 

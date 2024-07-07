@@ -30,6 +30,7 @@ public class AppConfig {
                 .authorizeHttpRequests(Authorize->Authorize
                                 .requestMatchers("/api/restaurants").permitAll()
                                 .requestMatchers("/api/food/all").permitAll()
+                                .requestMatchers("/api/event/all").permitAll()
                         .requestMatchers("/api/admin/**").hasAnyRole("RESTAURANT_OWNER","ADMIN")
                         .requestMatchers("/api/**").authenticated() //only jwt matched users allow
                         .anyRequest().permitAll() //user do not want to provide jwt token sign in and sign up and

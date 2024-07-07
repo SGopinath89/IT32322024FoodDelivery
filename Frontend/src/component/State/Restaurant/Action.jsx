@@ -10,7 +10,7 @@ export const getAllRestaurantAction = () => {
         try {
 
             const { data } = await api.get("/api/restaurants",
-               
+
             );
 
             dispatch({ type: GET_ALL_RESTAURANTS_SUCCESS, payload: data });
@@ -33,8 +33,8 @@ export const getAllFoods = () => {
         try {
 
             const { data } = await api.get("/api/food/all",
-                
-               
+
+
             );
 
             dispatch({ type: GET_ALL_FOODS_SUCCESS, payload: data });
@@ -83,14 +83,14 @@ export const getRestaurantByUserId = (jwt) => {
         dispatch({ type: GET_RESTAURANT_BY_USER_ID_REQUEST });
         try {
 
-            const {data} = await api.get("/api/admin/restaurants/user",
+            const { data } = await api.get("/api/admin/restaurants/user",
                 {
                     headers: {
                         Authorization: `Bearer ${jwt}`
                     }
                 }
             );
-            
+
             dispatch({ type: GET_RESTAURANT_BY_USER_ID_SUCCESS, payload: data });
             console.log("Get Restaurnt By id ", data);
 
@@ -120,10 +120,10 @@ export const createRestaurant = (reqData) => {
 
             await Swal.fire({
                 title: "create restaurnt succesfully",
-               timer:1500,
-               showConfirmButton:false,
+                timer: 1500,
+                showConfirmButton: false,
                 icon: "success"
-              });
+            });
 
             dispatch({ type: CREATE_RESTAURANT_SUCCESS, payload: data });
             console.log("Create Restaurant ", data);
@@ -184,7 +184,7 @@ export const deleteRestaurant = ({ restaurantId, jwt }) => {
                 title: "delete restaurnt successfully",
                 showConfirmButton: false,
                 timer: 1500
-              });
+            });
             dispatch({ type: DELETE_RESTAURANT_SUCCESS, payload: restaurantId });
             console.log("Delete Restaurant ", response.data);
 
@@ -204,7 +204,7 @@ export const updateRestaurantStatus = ({ restaurantId, jwt }) => {
         dispatch({ type: UPDATE_RESTAURANT_STATUS_REQUEST });
         try {
 
-            const  response = await api.put(`/api/admin/restaurants/${restaurantId}/status`, {},
+            const response = await api.put(`/api/admin/restaurants/${restaurantId}/status`, {},
                 {
                     headers: {
                         Authorization: `Bearer ${jwt}`
@@ -213,10 +213,10 @@ export const updateRestaurantStatus = ({ restaurantId, jwt }) => {
             );
             await Swal.fire({
                 title: "upate restaurnt status succesfully",
-               timer:1500,
-               showConfirmButton:false,
+                timer: 1500,
+                showConfirmButton: false,
                 icon: "success"
-              });
+            });
             dispatch({ type: UPDATE_RESTAURANT_STATUS_SUCCESS, payload: response.data });
             console.log("Update Restaurant Status ", response.data);
 
@@ -231,13 +231,13 @@ export const updateRestaurantStatus = ({ restaurantId, jwt }) => {
 
 
 export const createEvent = ({ data, jwt, restaurantId }) => {
-console.log(data)
+    console.log(data)
     return async (dispatch) => {
 
         dispatch({ type: CREATE_EVENTS_REQUEST });
         try {
 
-            const  response = await api.post(`/api/admin/event/create/${restaurantId}`, data,
+            const response = await api.post(`/api/admin/event/create/${restaurantId}`, data,
                 {
                     headers: {
                         Authorization: `Bearer ${jwt}`
@@ -250,7 +250,7 @@ console.log(data)
                 title: "create event successfully",
                 showConfirmButton: false,
                 timer: 1500
-              });
+            });
             dispatch({ type: CREATE_EVENTS_SUCCESS, payload: response.data });
             console.log("Create Event ", response.data);
 
@@ -264,7 +264,7 @@ console.log(data)
 }
 
 
-export const getAllEvents = (jwt) => {
+export const getAllEvents = () => {
 
     return async (dispatch) => {
 
@@ -273,9 +273,7 @@ export const getAllEvents = (jwt) => {
 
             const response = await api.get("/api/event/all",
                 {
-                    headers: {
-                        Authorization: `Bearer ${jwt}`
-                    }
+
                 }
             );
 
@@ -291,11 +289,11 @@ export const getAllEvents = (jwt) => {
 
 }
 
-export const getEventById= (jwt,restaurantId) => {
-    
+export const getEventById = (jwt, restaurantId) => {
+
     return async (dispatch) => {
 
-        dispatch({ type: GET_RESTAURANT_EVENTS_REQUEST_BY_ID});
+        dispatch({ type: GET_RESTAURANT_EVENTS_REQUEST_BY_ID });
         try {
 
             const response = await api.get(`/api/event/id/${restaurantId}`,
@@ -306,7 +304,7 @@ export const getEventById= (jwt,restaurantId) => {
                 }
             );
 
-           
+
             dispatch({ type: GET_RESTAURANT_EVENTS_SUCCESS_BY_ID, payload: response.data });
             console.log("Events by id", response.data);
 
@@ -340,7 +338,7 @@ export const deleteEvent = ({ eventId, jwt }) => {
                 title: "delete event successfully",
                 showConfirmButton: false,
                 timer: 1500
-              });
+            });
             dispatch({ type: DELETE_EVENTS_SUCCESS, payload: restaurantId });
             console.log("Delete Event ", response.data);
 
@@ -388,7 +386,7 @@ export const creatCategoryAction = ({ reqData, jwt }) => {
         dispatch({ type: CREATE_CATEGORY_REQUEST });
         try {
 
-            const  response  = await api.post(`/api/admin/category`, reqData,
+            const response = await api.post(`/api/admin/category`, reqData,
                 {
                     headers: {
                         Authorization: `Bearer ${jwt}`
@@ -401,7 +399,7 @@ export const creatCategoryAction = ({ reqData, jwt }) => {
                 title: "create category successfully",
                 showConfirmButton: false,
                 timer: 1500
-              });
+            });
             dispatch({ type: CREATE_CATEGORY_SUCCESS, payload: response.data });
             console.log("Create Category ", response.data);
 

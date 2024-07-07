@@ -4,14 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getAllEvents } from '../State/Restaurant/Action'
 
 const Event = () => {
-  const dispatch = useDispatch();
+
   const { auth, restaurant } = useSelector(store => store);
 
-  useEffect(() => {
-    if (auth.jwt) {
-      dispatch(getAllEvents(auth.jwt));
-    }
-  }, [auth.jwt, dispatch]);
+  
 
   return (
     <div>

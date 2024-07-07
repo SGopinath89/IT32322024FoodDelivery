@@ -182,13 +182,7 @@ export const deleteFoodAction = ({ foodId, jwt }) => {
                     }
                 }
             );
-            Swal.fire({
-                position: "center",
-                icon: "success",
-                title: "delete food successfully",
-                showConfirmButton: false,
-                timer: 1500
-              });
+         
             console.log("Delete food ", data);
             dispatch({ type: DELETE_MENUE_ITEM_SUCCSESS, payload: foodId });
         } catch (error) {

@@ -90,7 +90,7 @@ const MenuCard = ({ item }) => {
                         </div>
 
                         <div className='pt-5'>
-                            <Button type="submit" variant='contained' disabled={false}>{true ? ("Add to Cart") : ("Out of Stock")}</Button>
+                            <Button type="submit" variant='contained' disabled={!item.available}>{item.available  ? ("Add to Cart") : ("Out of Stock")}</Button>
                         </div>
                     </form>
                 </AccordionDetails>
