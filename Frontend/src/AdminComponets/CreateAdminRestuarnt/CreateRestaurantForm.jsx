@@ -8,39 +8,7 @@ import { uploadImageToCloudinary } from '../util/UploadToCloudinary';
 import { useDispatch, useSelector } from 'react-redux';
 import { createRestaurant } from '../../component/State/Restaurant/Action';
 
-// const initialValues = {
-//   name: "",
-//   description: "",
-//   cuisineType: "",
-//   streetAddress: "",
-//   city: "",
-//   stateProvince: "",
-//   postalCode: "",
-//   country: "",
-//   email: "",
-//   mobile: "",
-//   facebook: "",
-//   instagram: "",
-//   openingHours: "Mon-Sun : 9.00 AM : 12.00 PM",
-//   images: []
-// };
 
-const initialValues = {
-  name: "My Restaurant",
-  description: "Welcome to My Restaurant! We serve delicious food with a smile.",
-  cuisineType: "Italian",
-  streetAddress: "123 Main Street",
-  city: "Cityville",
-  stateProvince: "Stateville",
-  postalCode: "12345",
-  country: "Countryland",
-  email: "info@myrestaurant.com",
-  mobile: "123-456-7890",
-  facebook: "https://www.facebook.com/myrestaurant",
-  instagram: "https://www.instagram.com/myrestaurant",
-  openingHours: "Mon-Sun : 9.00 AM : 12.00 PM",
-  images: []
-};
 
 
 const validationSchema = Yup.object({
@@ -125,9 +93,9 @@ const CreateRestaurantForm = () => {
   };
 
   return (
-    <div className='py-10 px-2 lg:flex items-center justify-center min-h-screen'>
+    <div className='items-center justify-center min-h-screen px-2 py-10 lg:flex'>
       <div className='lg:max-w-4xl'>
-        <h1 className='font-bold text-2xl text-center py-2'>
+        <h1 className='py-2 text-2xl font-bold text-center'>
           Add New Restaurant
         </h1>
 
@@ -143,11 +111,11 @@ const CreateRestaurantForm = () => {
                 accept='image/*'
               />
               <label className='relative' htmlFor="fileInput">
-                <span className='w-24 h-24 cursor-pointer flex items-center justify-center p-3 border rounded-md border-gray-600'>
+                <span className='flex items-center justify-center w-24 h-24 p-3 border border-gray-600 rounded-md cursor-pointer'>
                   <AddPhotoAlternateIcon className='text-gray-600' />
                 </span>
                 {uploadImage && (
-                  <div className='absolute left-0 right-0 top-0 bottom-0 flex items-center justify-center'>
+                  <div className='absolute top-0 bottom-0 left-0 right-0 flex items-center justify-center'>
                     <CircularProgress />
                   </div>
                 )}
@@ -157,7 +125,7 @@ const CreateRestaurantForm = () => {
                 {formik.values?.images?.map((image, index) => (
                   <div key={index} className='relative'>
                     <img
-                      className='w-24 h-24 object-cover'
+                      className='object-cover w-24 h-24'
                       src={image}
 
                     />
