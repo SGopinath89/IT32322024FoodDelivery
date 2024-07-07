@@ -4,7 +4,7 @@ import { Button, CircularProgress } from '@mui/material';
 import { createOrder as createOrderAction } from '../State/Order/Action';
 import { clearCartAction } from '../State/Cart/Action';
 import Lottie from 'lottie-react';
-import paymentAnimation from '../../assets/payment.json';
+import paymentAnimation from '../../assets/payment_success.json';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import { useNavigate } from 'react-router-dom';
@@ -20,16 +20,6 @@ const PaymentSuccess = () => {
 
     const handleCreateOrder = async () => {
         setIsCreatingOrder(true);
-
-        const defaultOptions = {
-            loop: true,
-            autoplay: true,
-            animationData: paymentAnimation,
-            rendererSettings: {
-                preserveAspectRatio: 'xMidYMid slice'
-            }
-        };
-
         try {
             // Track unique restaurant IDs
             const uniqueRestaurantIds = new Set();
@@ -73,8 +63,12 @@ const PaymentSuccess = () => {
                     MySwal.showLoading();
                 }
             });
-
-            navigate("/profile/orders");
+            if(auth?.user){
+                navigate("/profile/orders");
+            }else{
+                navigate("/account/login");
+            }
+        
         } catch (error) {
             console.error("Error creating order:", error);
             // Handle error scenarios (e.g., show error message to user)

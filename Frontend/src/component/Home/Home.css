@@ -1,41 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Best+Goosles&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Kode+Mono:wght@400..700&family=Permanent+Marker&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Zen+Loop:ital@0;1&display=swap');
-
-.banner{
-    
-    background-image:url("https://img.freepik.com/free-vector/delivery-service-with-masks-concept_23-2148497067.jpg?t=st=1717260338~exp=1717263938~hmac=9442abfe0acd1f07dbae1ec13ee836842dd7f3754fa97b8dcd79472120f9509f&w=1060");
-    background-size:cover;
-    background-repeat:no-repeat;
-    width:100%;
-    height:100vh;
-    opacity: 0.7;
-
-    font-family: "Zen Loop", cursive;
-    font-weight: 900;
+@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Rubik+Glitch+Pop&display=swap');
+.banner {
+    background-image: url("https://images.pexels.com/photos/1482803/pexels-photo-1482803.jpeg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh; /* Full viewport height */
+    opacity: 0.6; /* Transparency */
+    font-family: "Alfa Slab One", serif;
+    font-weight: 400;
     font-style: normal;
-
+    position: relative;
+    overflow: hidden; /* Hides overflow content */
+    display: flex;
+   
 }
-@media (max-width: 768px) {
-    .banner {
-        background-size: contain; 
-        height: 50vh; 
+
+.banner-content {
+    text-align: center;
+    animation: fadeIn 3s ease-out forwards, slideIn 2s ease-out forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
 
+@keyframes slideIn {
+    0% {
+        transform: translateY(-50px);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .banner {
+        width:'100%';
+        background-size: contain;
+        
+        height: 40vh;
+    }
+}
 
 @media (max-width: 480px) {
     .banner {
-        background-size: contain; 
-        background-position: center; 
-        height: 40vh; 
+        width:'100%';
+        background-size: contain;
+        
+        height: 35vh;
+    }
+}
+
+@media (max-width: 300px) {
+    .search-container {
+        flex-direction: column;
     }
 }
 
 
 .logo{
     
-        font-family: "IBM Plex Sans", sans-serif;
-        font-weight: 700;
-        
-    }
+    font-family: "IBM Plex Sans", sans-serif;
+    font-weight: 700;
+    
+}

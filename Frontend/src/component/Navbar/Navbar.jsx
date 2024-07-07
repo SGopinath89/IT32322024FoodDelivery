@@ -31,13 +31,7 @@ const Navbar = ({ handleDrawer, isAddmin }) => {
         if (auth.user) {
             navigate("/cart");
         } else {
-            Swal.fire({
-                icon: "error",
-                title: "Waring..!!",
-                text: "You need to login first",
-                footer: '<a href="/account/login">Click hear to login</a>'
-
-            });
+            navigate('account/login');
         }
     }
 
@@ -56,16 +50,16 @@ const Navbar = ({ handleDrawer, isAddmin }) => {
                             </li>
                 </div>
                 <div className='flex items-center space-x-2 lg:space-x-10'>
-                    <div>
+                    {/* <div>
                         <IconButton>
                             <SearchIcon sx={{ fontSize: "1.5rem" }} />
                         </IconButton>
-                    </div>
+                    </div> */}
                     <div>
-                        {auth.user ? (
+                        {auth?.user ? (
                             <IconButton>
                                 <Avatar onClick={handleAvatarClick} sx={{ bgcolor: "white", color: pink.A400, width: 32, height: 32 }}>
-                                    {auth.user?.fullName[0].toUpperCase()}
+                                    {auth?.user?.fullName[0].toUpperCase()}
                                 </Avatar>
                             </IconButton>
                         ) : (

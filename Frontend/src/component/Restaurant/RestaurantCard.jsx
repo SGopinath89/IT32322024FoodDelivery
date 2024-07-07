@@ -22,18 +22,18 @@ const RestaurantCard = ({ item }) => {
         if (auth.user) {
             dispatch(addToFavorite({ restaurantId: item.id, jwt }));
         } else {
-            Swal.fire("You must login first");
+            navigate('/account/login');
         }
 
     }
 
     const handleNavigateToRestaurant = () => {
         if (!auth.user) {
-            Swal.fire("You must login first");
+            navigate('/account/login');
         }
         else if (item.open) {  //set logic correct after test
 
-            navigate(`/restaurant/${item?.address?.city}/${item.name}/${item.id}`);
+            navigate(`/restaurant/${item.id}`);
         } else {
             Swal.fire("Restaurant closed try later..");
         }

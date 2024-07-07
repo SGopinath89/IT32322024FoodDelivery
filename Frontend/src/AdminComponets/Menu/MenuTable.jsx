@@ -1,10 +1,10 @@
-import { Avatar, Box, Card, CardHeader, Chip, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
+import { Avatar, Box, Button, Card, CardHeader, Chip, IconButton, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import CreateIcon from '@mui/icons-material/Create';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteFoodAction, getAllMenuItemsByRestaurantId } from '../../component/State/Menu/Action';
+import { deleteFoodAction, getAllMenuItemsByRestaurantId, updateMenuItemsAvailability } from '../../component/State/Menu/Action';
 import Swal from 'sweetalert2';
 
 const MenuTable = () => {
@@ -41,6 +41,15 @@ const MenuTable = () => {
             jwt
         }));
     }, [dispatch, restaurant?.usersRestaurant?.id, jwt]);
+
+    const handleUpdateAvailbality = (id) => {
+
+        dispatch(updateMenuItemsAvailability({
+            foodId: id,
+            jwt
+        }));
+    }
+
 
     return (
         <Box>
@@ -84,7 +93,14 @@ const MenuTable = () => {
                                     </div>
                                 </TableCell>
                                 <TableCell align="center">Rs. {row.price}.00</TableCell>
-                                <TableCell align="center">{row.available ? "Yes" : "No"}</TableCell>
+                                {/* <TableCell align="center">{row.available ? "Yes" : "No"}</TableCell> */}
+                                <TableCell align="right">
+                                    <Button onClick={() => handleUpdateAvailbality(row.id)}>
+                                        {
+                                            row.available ? "Yes" : "No"
+                                        }
+                                    </Button>
+                                </TableCell>
                                 <TableCell align="center">
                                     <IconButton color='primary' onClick={() => handleDelete(row.id)}>
                                         <DeleteIcon />
