@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteFoodAction, getAllMenuItemsByRestaurantId, updateMenuItemsAvailability } from '../../component/State/Menu/Action';
 import Swal from 'sweetalert2';
+import { getIngredientsOfRestaurant } from '../../component/State/Ingredients/Action';
 
 const MenuTable = () => {
     const navigate = useNavigate();
@@ -14,7 +15,9 @@ const MenuTable = () => {
     const { restaurant, menu } = useSelector(store => store);
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
+    
+   
+  
     const handleDelete = (id) => {
         Swal.fire({
             title: "Are you sure?",
@@ -50,6 +53,14 @@ const MenuTable = () => {
         }));
     }
 
+    const handleNaviagteAddMenuItem = () => {
+        if (
+            true
+        ) {
+            navigate("/admin/restaurants/add-menu")
+        }
+    }
+
 
     return (
         <Box>
@@ -58,7 +69,7 @@ const MenuTable = () => {
                     title={"Menu"}
                     sx={{ pt: 2, alignItems: "center" }}
                     action={
-                        <IconButton onClick={() => navigate("/admin/restaurants/add-menu")}>
+                        <IconButton onClick={handleNaviagteAddMenuItem}>
                             <CreateIcon />
                         </IconButton>
                     }

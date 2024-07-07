@@ -8,7 +8,22 @@ import { uploadImageToCloudinary } from '../util/UploadToCloudinary';
 import { useDispatch, useSelector } from 'react-redux';
 import { createRestaurant } from '../../component/State/Restaurant/Action';
 
-
+const initialValues = {
+  name: "",
+  description: "",
+  cuisineType: "",
+  streetAddress: "",
+  city: "",
+  stateProvince: "",
+  postalCode: "",
+  country: "",
+  email: "",
+  mobile: "",
+  facebook: "",
+  instagram: "",
+  openingHours: "",
+  images: []
+};
 
 
 const validationSchema = Yup.object({
@@ -21,7 +36,7 @@ const validationSchema = Yup.object({
   postalCode: Yup.string().required("Postal code is required"),
   country: Yup.string().required("Country is required"),
   email: Yup.string().email("Invalid email format").required("Email is required"),
-  mobile: Yup.string().required("Mobile number is required"),
+  mobile: Yup.number().required("Mobile number is required"),
   facebook: Yup.string().url("Invalid URL format"),
   instagram: Yup.string().url("Invalid URL format"),
   openingHours: Yup.string().required("Opening hours are required")
